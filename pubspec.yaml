@@ -59,12 +59,18 @@ flutter:
 
   # Fonts
   fonts:
-    - family: Gilroy
+    - family: DMSans
       fonts:
-        - asset: assets/fonts/gilroy/Gilroy-Regular.ttf
-        - asset: assets/fonts/gilroy/Gilroy-Medium.ttf
+        - asset: assets/fonts/dm-sans/DMSans-Regular.ttf
+        - asset: assets/fonts/dm-sans/DMSans-Italic.ttf
+          style: italic
+        - asset: assets/fonts/dm-sans/DMSans-Medium.ttf
           weight: 500
-        - asset: assets/fonts/gilroy/Gilroy-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/gilroy/Gilroy-Bold.ttf
+        - asset: assets/fonts/dm-sans/DMSans-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/dm-sans/DMSans-Bold.ttf
           weight: 700
+        - asset: assets/fonts/dm-sans/DMSans-BoldItalic.ttf
+          weight: 700
+          style: italic

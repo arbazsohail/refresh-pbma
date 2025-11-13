@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_constants.dart';
 
@@ -33,11 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // TODO: Add your logo here
-              Icon(
-                Icons.flutter_dash,
-                size: 100,
-                color: AppColors.primary,
+              // App Logo
+              SvgPicture.asset(
+                'assets/images/logo.svg',
+                width: 120,
+                height: 120,
               ),
               const SizedBox(height: 24),
               Text(
