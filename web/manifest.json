@@ -1,6 +1,6 @@
 {
-    "name": "refresh_pbma",
-    "short_name": "refresh_pbma",
+    "name": "base_project",
+    "short_name": "base_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

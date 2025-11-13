@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="refresh_pbma"
+        android:label="Refresh PBMA"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
