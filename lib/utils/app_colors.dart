@@ -17,6 +17,7 @@ class AppColors {
   // Background Colors (Light Theme)
   static const Color lightBackground = Color(0xFFFCFCFC);
   static const Color lightSurface = Color(0xFFFFFFFF);
+  static const Color white = Color(0xFFFFFFFF);
   static const Color lightGray = Color(0xFFF5F5F5);
   static const Color textFieldColor = Color(0xFFF5F5F5);
 
@@ -28,6 +29,8 @@ class AppColors {
   // Light Theme Text Colors
   static const Color blackText = Color(0xFF101010);
   static const Color darkBlackText = Color(0xFF060606);
+  static const Color darkBlueText = Color(0xFF2D5F9B); // Dark blue for titles
+  static const Color greyText = Color(0xFF7C8086); // Grey for descriptions
 
   // Status Colors
   static const Color success = Color(0xFF2BC259); // Dark Green
@@ -56,6 +59,7 @@ class AppColors {
   static const Color divider = Color(0xFF2A2A2A);
   static const Color lightBorder = Color(0xFFEDF1F3);
   static const Color borderColor = Color(0xFFB9B9B9);
+  static const Color borderGrey = Color(0xFFE0E2E5);
 
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(

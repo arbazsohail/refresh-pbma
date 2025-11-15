@@ -23,6 +23,8 @@ class CustomButton extends StatefulWidget {
     this.borderColor,
     this.overrideDisableCondition = false,
     this.fontWeight,
+    this.colorizeIcon = false,
+    this.iconSpacing = 10,
   });
 
   final double height;
@@ -42,6 +44,8 @@ class CustomButton extends StatefulWidget {
   final Color? borderColor;
   final FontWeight? fontWeight;
   final bool overrideDisableCondition;
+  final bool colorizeIcon;
+  final double iconSpacing;
 
   @override
   State<CustomButton> createState() => _RoundButtonState();
@@ -118,27 +122,27 @@ class _RoundButtonState extends State<CustomButton> {
           padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.icon != null && !widget.loading)
                 SvgPicture.asset(
                   widget.icon!,
-                  // ignore: deprecated_member_use
-                  color: widget.textColor,
                   height: 20,
+                  colorFilter: widget.colorizeIcon
+                      ? ColorFilter.mode(widget.textColor, BlendMode.srcIn)
+                      : null,
                 ),
               if (widget.icon != null && !widget.loading)
-                const SizedBox(width: 10),
+                SizedBox(width: widget.iconSpacing),
               if (!widget.loading)
-                Expanded(
-                  child: Text(
-                    widget.title,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: widget.fontWeight ?? FontWeight.w600,
-                      color: widget.gradient ? Colors.white : widget.textColor,
-                      fontSize: widget.titleFontSize,
-                    ),
+                Text(
+                  widget.title,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: widget.fontWeight ?? FontWeight.w600,
+                    color: widget.gradient ? Colors.white : widget.textColor,
+                    fontSize: widget.titleFontSize,
                   ),
                 ),
               if (widget.loading)

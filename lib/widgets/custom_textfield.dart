@@ -71,18 +71,11 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       decoration: BoxDecoration(
         color: widget.filledColor ?? AppColors.surface,
         borderRadius: BorderRadius.circular(widget.borderRadius ?? 12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: TextFormField(
         style: TextStyle(
           fontSize: 16,
-          color: isEnabled ? AppColors.textPrimary : AppColors.textSecondary,
+          color: isEnabled ? AppColors.blackText : AppColors.greyText,
         ),
         enabled: isEnabled,
         autofocus: widget.autofocus ?? false,

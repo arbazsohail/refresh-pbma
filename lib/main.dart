@@ -27,6 +27,15 @@ Future<void> initServices() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  String _getInitialRoute() {
+    final storage = Get.find<StorageService>();
+    final onboardingCompleted = storage.getBool('onboarding_completed') ?? false;
+
+    // If onboarding not completed, show onboarding
+    // Otherwise, go directly to join screen
+    return onboardingCompleted ? AppRoutes.join : AppRoutes.onboarding;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -34,8 +43,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
 
-      // Initial Route
-      initialRoute: AppRoutes.splash,
+      // Initial Route based on onboarding status
+      initialRoute: _getInitialRoute(),
 
       // Routes
       getPages: AppPages.routes,
