@@ -149,8 +149,11 @@ class SignupController extends GetxController {
       // TODO: Implement actual sign up logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
-      // Navigate to home screen on success
-      Get.offAllNamed(AppRoutes.home);
+      // Navigate to verify email screen on success
+      Get.toNamed(
+        AppRoutes.verifyEmail,
+        arguments: {'email': emailController.text},
+      );
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -172,7 +175,7 @@ class SignupController extends GetxController {
       // TODO: Implement Google sign up logic
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
-      Get.offAllNamed(AppRoutes.home);
+      Get.offAllNamed(AppRoutes.mainPage);
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -194,7 +197,7 @@ class SignupController extends GetxController {
       // TODO: Implement Apple sign up logic
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
-      Get.offAllNamed(AppRoutes.home);
+      Get.offAllNamed(AppRoutes.mainPage);
     } catch (e) {
       Get.snackbar(
         'Error',

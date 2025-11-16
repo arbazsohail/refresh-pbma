@@ -388,54 +388,87 @@ class SignupScreen extends GetView<SignupController> {
 
             const SizedBox(height: 24),
 
-            // Terms and conditions text
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: const TextStyle(
-                  color: AppColors.greyText,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'DMSans',
-                  height: 1.5,
+            // Terms and conditions checkbox with text
+            Obx(
+              () => GestureDetector(
+                onTap: () => controller.toggleTerms(!controller.agreeToTerms.value),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 15,
+                      height: 15,
+                      decoration: BoxDecoration(
+                        color: controller.agreeToTerms.value
+                            ? AppColors.secondary
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: AppColors.secondary,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: controller.agreeToTerms.value
+                          ? const Icon(
+                              Icons.check,
+                              size: 10,
+                              color: AppColors.white,
+                            )
+                          : null,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            color: AppColors.greyText,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'DMSans',
+                            height: 1.5,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text:
+                                  'By creating an account using email, Google, or Apple, I agree to the ',
+                            ),
+                            WidgetSpan(
+                              child: GestureDetector(
+                                onTap: controller.openTerms,
+                                child: const Text(
+                                  'terms and Conditions',
+                                  style: TextStyle(
+                                    color: AppColors.secondary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'DMSans',
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const TextSpan(text: ' and acknowledge the '),
+                            WidgetSpan(
+                              child: GestureDetector(
+                                onTap: controller.openPrivacyPolicy,
+                                child: const Text(
+                                  'Privacy Policy',
+                                  style: TextStyle(
+                                    color: AppColors.secondary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'DMSans',
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                children: [
-                  const TextSpan(
-                    text:
-                        'By creating an account using email, Google, or Apple, I agree to the ',
-                  ),
-                  WidgetSpan(
-                    child: GestureDetector(
-                      onTap: controller.openTerms,
-                      child: const Text(
-                        'terms and Conditions',
-                        style: TextStyle(
-                          color: AppColors.secondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const TextSpan(text: ' and acknowledge the '),
-                  WidgetSpan(
-                    child: GestureDetector(
-                      onTap: controller.openPrivacyPolicy,
-                      child: const Text(
-                        'Privacy Policy',
-                        style: TextStyle(
-                          color: AppColors.secondary,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'DMSans',
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
 
@@ -469,13 +502,15 @@ class SignupScreen extends GetView<SignupController> {
                   color: AppColors.lightGray,
                   borderRadius: BorderRadius.circular(58),
                 ),
-                child: Text(
-                  "Already have an account ? Sign in",
-                  style: TextStyle(
-                    color: AppColors.blackText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'DMSans',
+                child: Center(
+                  child: Text(
+                    "Already have an account ? Sign in",
+                    style: TextStyle(
+                      color: AppColors.blackText,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'DMSans',
+                    ),
                   ),
                 ),
               ),
