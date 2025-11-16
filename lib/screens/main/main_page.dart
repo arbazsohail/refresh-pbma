@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../controllers/main_controller.dart';
 import '../../utils/app_colors.dart';
@@ -17,8 +18,8 @@ class MainPage extends GetView<MainController> {
           onTap: controller.changePage,
           type: BottomNavigationBarType.fixed,
           backgroundColor: AppColors.white,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.greyText,
+          selectedItemColor: AppColors.secondary,
+          unselectedItemColor: const Color(0xFF667078),
           selectedLabelStyle: const TextStyle(
             fontFamily: 'DMSans',
             fontWeight: FontWeight.w600,
@@ -29,26 +30,90 @@ class MainPage extends GetView<MainController> {
             fontWeight: FontWeight.w400,
             fontSize: 12,
           ),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
+              icon: SvgPicture.asset(
+                'assets/icons/home.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF667078),
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/home.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  AppColors.secondary,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view),
-              label: 'Categories',
+              icon: SvgPicture.asset(
+                'assets/icons/referrals.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF667078),
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/referrals.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  AppColors.secondary,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: 'Referrals',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_outline),
-              activeIcon: Icon(Icons.favorite),
-              label: 'Favorites',
+              icon: SvgPicture.asset(
+                'assets/icons/wallet.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF667078),
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/wallet.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  AppColors.secondary,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: 'Wallet',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              activeIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: SvgPicture.asset(
+                'assets/icons/explore.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF667078),
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/explore.svg',
+                width: 24,
+                height: 24,
+                colorFilter: ColorFilter.mode(
+                  AppColors.secondary,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: 'Explore',
             ),
           ],
         ),

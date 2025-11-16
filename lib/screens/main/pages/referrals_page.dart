@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../../utils/app_colors.dart';
+import '../../../widgets/custom_app_bar.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ReferralsPage extends StatelessWidget {
+  const ReferralsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            color: AppColors.blackText,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'DMSans',
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: 'Referrals',
+        showNotification: true,
+        showSettings: true,
+        onNotificationTap: () {
+          // TODO: Handle notification tap
+        },
+        onSettingsTap: () {
+          // TODO: Handle settings tap
+        },
       ),
       body: const Center(
         child: Text(
-          'Profile Page',
+          'Referrals Page',
           style: TextStyle(
             color: AppColors.blackText,
             fontSize: 18,

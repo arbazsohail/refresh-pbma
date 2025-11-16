@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../screens/main/pages/home_page.dart';
-import '../screens/main/pages/categories_page.dart';
-import '../screens/main/pages/favorites_page.dart';
-import '../screens/main/pages/profile_page.dart';
+import '../screens/main/pages/referrals_page.dart';
+import '../screens/main/pages/wallet_page.dart';
+import '../screens/main/pages/explore_page.dart';
 
 class MainController extends GetxController {
   final RxInt currentIndex = 0.obs;
@@ -11,9 +11,9 @@ class MainController extends GetxController {
   // List of pages for bottom navigation
   final List<Widget> pages = [
     const HomePage(),
-    const CategoriesPage(),
-    const FavoritesPage(),
-    const ProfilePage(),
+    const ReferralsPage(),
+    const WalletPage(),
+    const ExplorePage(),
   ];
 
   // Change page

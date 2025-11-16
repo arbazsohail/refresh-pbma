@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/app_routes.dart';
+import '../services/storage_service.dart';
 
 class LoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RxBool rememberMe = false.obs;
   final RxBool isLoading = false.obs;
+  final RxBool isGoogleLoading = false.obs;
+  final RxBool isAppleLoading = false.obs;
 
   // Form key for validation
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -57,6 +60,10 @@ class LoginController extends GetxController {
       // TODO: Implement actual sign in logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
+      // Save login state
+      final storage = Get.find<StorageService>();
+      await storage.saveBool('is_logged_in', true);
+
       // Navigate to main page on success
       Get.offAllNamed(AppRoutes.mainPage);
     } catch (e) {
@@ -74,46 +81,26 @@ class LoginController extends GetxController {
 
   // Sign in with Google
   Future<void> signInWithGoogle() async {
-    isLoading.value = true;
-
-    try {
-      // TODO: Implement Google sign in logic
-      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-
-      Get.offAllNamed(AppRoutes.mainPage);
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign in with Google. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Get.theme.colorScheme.error,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
-    }
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Sign in with Apple
   Future<void> signInWithApple() async {
-    isLoading.value = true;
-
-    try {
-      // TODO: Implement Apple sign in logic
-      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-
-      Get.offAllNamed(AppRoutes.mainPage);
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign in with Apple. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Get.theme.colorScheme.error,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
-    }
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Navigate to forgot password

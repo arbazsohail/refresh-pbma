@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes/app_routes.dart';
 import '../widgets/verification_success_dialog.dart';
+import '../services/storage_service.dart';
 
 class VerifyOTPController extends GetxController {
   final RxString email = ''.obs;
@@ -76,6 +77,10 @@ class VerifyOTPController extends GetxController {
           arguments: {'email': email.value},
         );
       } else {
+        // Save login state for signup flow
+        final storage = Get.find<StorageService>();
+        await storage.saveBool('is_logged_in', true);
+
         // Show success dialog with confetti for signup flow
         Get.dialog(
           VerificationSuccessDialog(

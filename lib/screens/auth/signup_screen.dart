@@ -274,41 +274,35 @@ class SignupScreen extends GetView<SignupController> {
             const SizedBox(height: 24),
 
             // Continue with Google button
-            Obx(
-              () => CustomButton(
-                title: 'Continue with Google',
-                onTap: controller.signUpWithGoogle,
-                height: 54,
-                backgroundColor: AppColors.lightGray,
-                textColor: AppColors.blackText,
-                borderRadius: 58,
-                margin: 0,
-                horizontalPadding: 36,
-                titleFontSize: 16,
-                icon: 'assets/icons/google.svg',
-                iconSpacing: 5,
-                loading: controller.isLoading.value,
-              ),
+            CustomButton(
+              title: 'Continue with Google',
+              onTap: controller.signUpWithGoogle,
+              height: 54,
+              backgroundColor: AppColors.lightGray,
+              textColor: AppColors.blackText,
+              borderRadius: 58,
+              margin: 0,
+              horizontalPadding: 36,
+              titleFontSize: 16,
+              icon: 'assets/icons/google.svg',
+              iconSpacing: 5,
             ),
 
             const SizedBox(height: 16),
 
             // Continue with Apple button
-            Obx(
-              () => CustomButton(
-                title: 'Continue with Apple',
-                onTap: controller.signUpWithApple,
-                height: 54,
-                backgroundColor: AppColors.lightGray,
-                textColor: AppColors.blackText,
-                borderRadius: 58,
-                margin: 0,
-                horizontalPadding: 36,
-                titleFontSize: 16,
-                icon: 'assets/icons/apple.svg',
-                iconSpacing: 5,
-                loading: controller.isLoading.value,
-              ),
+            CustomButton(
+              title: 'Continue with Apple',
+              onTap: controller.signUpWithApple,
+              height: 54,
+              backgroundColor: AppColors.lightGray,
+              textColor: AppColors.blackText,
+              borderRadius: 58,
+              margin: 0,
+              horizontalPadding: 36,
+              titleFontSize: 16,
+              icon: 'assets/icons/apple.svg',
+              iconSpacing: 5,
             ),
 
             const SizedBox(height: 32),

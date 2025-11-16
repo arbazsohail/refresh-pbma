@@ -169,46 +169,26 @@ class SignupController extends GetxController {
 
   // Sign up with Google
   Future<void> signUpWithGoogle() async {
-    isLoading.value = true;
-
-    try {
-      // TODO: Implement Google sign up logic
-      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-
-      Get.offAllNamed(AppRoutes.mainPage);
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign up with Google. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Get.theme.colorScheme.error,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
-    }
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Sign up with Apple
   Future<void> signUpWithApple() async {
-    isLoading.value = true;
-
-    try {
-      // TODO: Implement Apple sign up logic
-      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
-
-      Get.offAllNamed(AppRoutes.mainPage);
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to sign up with Apple. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Get.theme.colorScheme.error,
-        colorText: Colors.white,
-      );
-    } finally {
-      isLoading.value = false;
-    }
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Navigate to sign in
