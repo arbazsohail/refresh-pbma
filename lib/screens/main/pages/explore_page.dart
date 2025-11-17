@@ -66,6 +66,8 @@ class ExplorePage extends GetView<ExploreController> {
                     }).toList(),
               ),
             ),
+
+            SizedBox(height: 24),
             // Ready to Book? Card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -369,9 +371,12 @@ class ExplorePage extends GetView<ExploreController> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Center(
-                              child: SvgPicture.asset('assets/icons/call.svg'),
+                            SvgPicture.asset(
+                              'assets/icons/call.svg',
+                              width: 32,
+                              height: 32,
                             ),
                             const SizedBox(height: 12),
                             const Text(
@@ -413,9 +418,12 @@ class ExplorePage extends GetView<ExploreController> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Center(
-                              child: SvgPicture.asset('assets/icons/mxg.svg'),
+                            SvgPicture.asset(
+                              'assets/icons/mxg.svg',
+                              width: 32,
+                              height: 32,
                             ),
                             const SizedBox(height: 12),
                             const Text(

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../services/storage_service.dart';
 
@@ -51,37 +52,140 @@ class SettingsController extends GetxController {
 
   // Navigate to Contact Us
   void navigateToContactUs() {
-    // TODO: Navigate to contact us screen
-    Get.snackbar('Contact Us', 'Coming soon');
+    Get.toNamed('/contact-us');
   }
 
   // Navigate to Terms & Conditions
   void navigateToTermsAndConditions() {
-    // TODO: Navigate to terms screen
-    Get.snackbar('Terms & Conditions', 'Coming soon');
+    Get.toNamed('/terms-and-conditions');
   }
 
   // Navigate to Privacy Policy
   void navigateToPrivacyPolicy() {
-    // TODO: Navigate to privacy policy screen
-    Get.snackbar('Privacy Policy', 'Coming soon');
+    Get.toNamed('/privacy-policy');
   }
 
   // Log out
   void logOut() {
-    Get.defaultDialog(
-      title: 'Log Out',
-      middleText: 'Are you sure you want to log out?',
-      textConfirm: 'Yes',
-      textCancel: 'Cancel',
-      confirmTextColor: Get.theme.colorScheme.onPrimary,
-      onConfirm: () {
-        // Clear user data
-        _storageService.clearAll();
-        // Navigate to login screen
-        Get.back();
-        Get.offAllNamed('/login');
-      },
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Logout icon
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.logout_rounded,
+                  color: Colors.red,
+                  size: 32,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Title
+              const Text(
+                'Log Out',
+                style: TextStyle(
+                  color: Color(0xFF141413),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'DMSans',
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // Message
+              const Text(
+                'Are you sure you want to log out of your account?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF7C8086),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'DMSans',
+                  height: 1.5,
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Buttons
+              Row(
+                children: [
+                  // Cancel button
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => Get.back(),
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFE0E0E0),
+                        foregroundColor: const Color(0xFF141413),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'DMSans',
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  // Logout button
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        // Clear user data
+                        _storageService.clearAll();
+                        // Navigate to login screen
+                        Get.back();
+                        Get.offAllNamed('/login');
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'Log Out',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'DMSans',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
     );
   }
 }

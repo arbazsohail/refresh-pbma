@@ -14,10 +14,13 @@ import '../screens/profile/profile_settings_screen.dart';
 import '../screens/password/change_password_settings_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/faq/faq_screen.dart';
+import '../screens/contact/contact_us_screen.dart';
 import '../screens/referral/referral_details_screen.dart';
 import '../screens/points/points_tiers_screen.dart';
 import '../screens/earn/how_to_earn_screen.dart';
 import '../screens/scanner/qr_scanner_screen.dart';
+import '../screens/legal/terms_and_conditions_screen.dart';
+import '../screens/legal/privacy_policy_screen.dart';
 import '../controllers/onboarding_controller.dart';
 import '../controllers/login_controller.dart';
 import '../controllers/signup_controller.dart';
@@ -32,12 +35,15 @@ import '../controllers/profile_settings_controller.dart';
 import '../controllers/change_password_settings_controller.dart';
 import '../controllers/settings_controller.dart';
 import '../controllers/faq_controller.dart';
+import '../controllers/contact_us_controller.dart';
 import '../controllers/referrals_controller.dart';
 import '../controllers/referral_details_controller.dart';
 import '../controllers/points_tiers_controller.dart';
 import '../controllers/how_to_earn_controller.dart';
 import '../controllers/explore_controller.dart';
 import '../controllers/wallet_controller.dart';
+import '../controllers/terms_and_conditions_controller.dart';
+import '../controllers/privacy_policy_controller.dart';
 
 class AppPages {
   static final routes = [
@@ -184,6 +190,16 @@ class AppPages {
     ),
 
     GetPage(
+      name: AppRoutes.contactUs,
+      page: () => const ContactUsScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<ContactUsController>(() => ContactUsController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
       name: AppRoutes.referralDetails,
       page: () => const ReferralDetailsScreen(),
       binding: BindingsBuilder(() {
@@ -216,6 +232,26 @@ class AppPages {
     GetPage(
       name: AppRoutes.qrScanner,
       page: () => const QRScannerScreen(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.termsAndConditions,
+      page: () => const TermsAndConditionsScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<TermsAndConditionsController>(() => TermsAndConditionsController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.privacyPolicy,
+      page: () => const PrivacyPolicyScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<PrivacyPolicyController>(() => PrivacyPolicyController());
+      }),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

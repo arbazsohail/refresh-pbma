@@ -135,50 +135,154 @@ class ProfileSettingsController extends GetxController {
 
   // Delete account
   void deleteAccount() {
-    Get.defaultDialog(
-      title: 'Delete Account',
-      middleText: 'Are you sure you want to delete your account? This action cannot be undone.',
-      textConfirm: 'Delete',
-      textCancel: 'Cancel',
-      confirmTextColor: Colors.white,
-      buttonColor: Colors.red,
-      cancelTextColor: Get.theme.colorScheme.primary,
-      onConfirm: () async {
-        Get.back(); // Close dialog
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Warning icon
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.red.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.warning_rounded,
+                  color: Colors.red,
+                  size: 32,
+                ),
+              ),
 
-        isLoading.value = true;
+              const SizedBox(height: 20),
 
-        try {
-          // In a real app, you would call an API to delete the account
-          await Future.delayed(const Duration(seconds: 1));
+              // Title
+              const Text(
+                'Delete Account',
+                style: TextStyle(
+                  color: Color(0xFF141413),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'DMSans',
+                ),
+              ),
 
-          // Clear all data
-          await _storageService.clearAll();
+              const SizedBox(height: 12),
 
-          // Navigate to login
-          Get.offAllNamed('/login');
+              // Message
+              const Text(
+                'You are going to delete your account. Are you sure?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF7C8086),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'DMSans',
+                  height: 1.5,
+                ),
+              ),
 
-          Get.snackbar(
-            'Account Deleted',
-            'Your account has been deleted successfully',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-            duration: const Duration(seconds: 2),
-          );
-        } catch (e) {
-          Get.snackbar(
-            'Error',
-            'Failed to delete account. Please try again.',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            duration: const Duration(seconds: 2),
-          );
-        } finally {
-          isLoading.value = false;
-        }
-      },
+              const SizedBox(height: 24),
+
+              // Buttons
+              Row(
+                children: [
+                  // Cancel button
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () => Get.back(),
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFE0E0E0),
+                        foregroundColor: const Color(0xFF141413),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'No, Keep It',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'DMSans',
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  // Delete button
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () async {
+                        Get.back(); // Close dialog
+
+                        isLoading.value = true;
+
+                        try {
+                          // In a real app, you would call an API to delete the account
+                          await Future.delayed(const Duration(seconds: 1));
+
+                          // Clear all data
+                          await _storageService.clearAll();
+
+                          // Navigate to login
+                          Get.offAllNamed('/login');
+
+                          Get.snackbar(
+                            'Account Deleted',
+                            'Your account has been deleted successfully',
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.green,
+                            colorText: Colors.white,
+                            duration: const Duration(seconds: 2),
+                          );
+                        } catch (e) {
+                          Get.snackbar(
+                            'Error',
+                            'Failed to delete account. Please try again.',
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            duration: const Duration(seconds: 2),
+                          );
+                        } finally {
+                          isLoading.value = false;
+                        }
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                      child: const Text(
+                        'Yes, Delete It',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'DMSans',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
     );
   }
 }

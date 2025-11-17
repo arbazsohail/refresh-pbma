@@ -61,9 +61,9 @@ class AppConstants {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor:
-            AppColors.background, // Dark status bar matching app bar
+            Colors.transparent, // Dark status bar matching app bar
         statusBarIconBrightness:
-            Brightness.light, // Light icons for dark status bar
+            Brightness.light, // Light/white icons for dark status bar
         statusBarBrightness: Brightness.dark, // iOS: dark status bar
         systemNavigationBarColor:
             AppColors.lightBackground, // Light bottom nav frame
@@ -98,7 +98,7 @@ class AppConstants {
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // Transparent status bar
         statusBarIconBrightness:
-            Brightness.light, // Light icons for dark backgrounds
+            Brightness.dark, // Light icons for dark backgrounds
         statusBarBrightness: Brightness.dark, // iOS: dark status bar
         systemNavigationBarColor: AppColors.background, // Dark bottom nav
         systemNavigationBarIconBrightness:

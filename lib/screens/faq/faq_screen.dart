@@ -11,7 +11,7 @@ class FaqScreen extends GetView<FaqController> {
 
   @override
   Widget build(BuildContext context) {
-    return AppConstants.lightSystemOverlay(
+    return AppConstants.darkSystemOverlay(
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: const CustomAppBar(

@@ -162,18 +162,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       if (customLeading != null)
                         customLeading!
                       else if (leadingText != null)
-                        Flexible(
-                          child: Text(
-                            leadingText!,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'DMSans',
-                              height: 1.3,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.visible,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: leadingText!.split('\n').map((line) {
+                              final isFirstLine = leadingText!.split('\n').first == line;
+                              return Text(
+                                line,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: isFirstLine ? 14 : 20,
+                                  fontWeight: isFirstLine ? FontWeight.w400 : FontWeight.bold,
+                                  fontFamily: 'DMSans',
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              );
+                            }).toList(),
                           ),
                         ),
 

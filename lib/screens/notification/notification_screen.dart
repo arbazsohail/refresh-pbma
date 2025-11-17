@@ -5,7 +5,6 @@ import '../../controllers/notification_controller.dart';
 import '../../models/notification_model.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
-import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_refresh_header.dart';
 import '../../widgets/custom_refresh_footer.dart';
 
@@ -16,10 +15,27 @@ class NotificationScreen extends GetView<NotificationController> {
   Widget build(BuildContext context) {
     return AppConstants.lightSystemOverlay(
       child: Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: const CustomAppBar(
-          title: 'Notifications',
-          showBackButton: true,
+        backgroundColor: const Color(0xFFF5F5F5),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF141413),
+            ),
+            onPressed: () => Get.back(),
+          ),
+          title: const Text(
+            'Notifications',
+            style: TextStyle(
+              color: Color(0xFF141413),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'DMSans',
+            ),
+          ),
         ),
         body: Obx(() {
           if (controller.isLoading.value && controller.notifications.isEmpty) {
@@ -68,7 +84,7 @@ class NotificationScreen extends GetView<NotificationController> {
             onRefresh: controller.onRefresh,
             onLoading: controller.onLoadMore,
             child: ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               itemCount: groupedNotifications.length,
               itemBuilder: (context, index) {
                 final dateLabel = groupedNotifications.keys.elementAt(index);
@@ -80,15 +96,15 @@ class NotificationScreen extends GetView<NotificationController> {
                     // Date header
                     Padding(
                       padding: EdgeInsets.only(
-                        left: 8,
-                        top: index == 0 ? 8 : 24,
-                        bottom: 16,
+                        left: 4,
+                        top: index == 0 ? 0 : 20,
+                        bottom: 12,
                       ),
                       child: Text(
                         dateLabel,
                         style: const TextStyle(
-                          color: Color(0xFF7C8086),
-                          fontSize: 14,
+                          color: Color(0xFF888F9A),
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'DMSans',
                         ),
@@ -112,96 +128,40 @@ class NotificationScreen extends GetView<NotificationController> {
   Widget _buildNotificationItem(NotificationModel notification) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: notification.isRead
-            ? AppColors.white
-            : AppColors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: const Color(0xFFE8E8E8),
-          width: 1,
-        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Logo icon
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColors.secondary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Image.asset(
-                'assets/images/logo.png',
-                width: 24,
-                height: 24,
-              ),
-            ),
+          Image.asset(
+            'assets/images/logo.png',
+            width: 48,
+            height: 48,
           ),
 
-          const SizedBox(width: 12),
+          const SizedBox(width: 14),
 
           // Notification content
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  notification.message,
-                  style: TextStyle(
-                    color: AppColors.blackText,
-                    fontSize: 14,
-                    fontWeight: notification.isRead
-                        ? FontWeight.w400
-                        : FontWeight.w500,
-                    fontFamily: 'DMSans',
-                    height: 1.4,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _formatTime(notification.timestamp),
-                  style: const TextStyle(
-                    color: Color(0xFF9E9E9E),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'DMSans',
-                  ),
-                ),
-              ],
+            child: Text(
+              notification.message,
+              style: const TextStyle(
+                color: Color(0xFF141413),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'DMSans',
+                height: 1.5,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-
-          // Unread indicator
-          if (!notification.isRead)
-            Container(
-              width: 8,
-              height: 8,
-              margin: const EdgeInsets.only(top: 4),
-              decoration: const BoxDecoration(
-                color: AppColors.secondary,
-                shape: BoxShape.circle,
-              ),
-            ),
         ],
       ),
     );
-  }
-
-  String _formatTime(DateTime dateTime) {
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
-
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${difference.inDays}d ago';
-    }
   }
 }

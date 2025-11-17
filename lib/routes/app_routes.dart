@@ -22,8 +22,11 @@ class AppRoutes {
   static const String notification = '/notification';
   static const String settings = '/settings';
   static const String faq = '/faq';
+  static const String contactUs = '/contact-us';
   static const String referralDetails = '/referral-details';
   static const String pointsTiers = '/points-tiers';
   static const String howToEarn = '/how-to-earn';
   static const String qrScanner = '/qr-scanner';
+  static const String termsAndConditions = '/terms-and-conditions';
+  static const String privacyPolicy = '/privacy-policy';
 }

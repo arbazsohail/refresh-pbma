@@ -3,13 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../controllers/main_controller.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/app_constants.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppConstants.darkSystemOverlay(
+      child: Scaffold(
       backgroundColor: AppColors.white,
       body: Obx(() => controller.pages[controller.currentIndex.value]),
       bottomNavigationBar: Obx(
@@ -117,6 +119,7 @@ class MainPage extends GetView<MainController> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
