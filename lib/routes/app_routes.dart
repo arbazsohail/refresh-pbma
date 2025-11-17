@@ -17,4 +17,13 @@ class AppRoutes {
   static const String mainPage = '/main';
   static const String home = '/home';
   static const String profile = '/profile';
+  static const String profileSettings = '/profile-settings';
+  static const String changePasswordSettings = '/change-password-settings';
+  static const String notification = '/notification';
+  static const String settings = '/settings';
+  static const String faq = '/faq';
+  static const String referralDetails = '/referral-details';
+  static const String pointsTiers = '/points-tiers';
+  static const String howToEarn = '/how-to-earn';
+  static const String qrScanner = '/qr-scanner';
 }

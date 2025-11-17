@@ -33,7 +33,6 @@ class ForgotPasswordController extends GetxController {
     isLoading.value = true;
 
     try {
-      // TODO: Implement actual send code logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Navigate to OTP verification screen

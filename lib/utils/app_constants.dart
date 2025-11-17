@@ -11,7 +11,7 @@ class AppConstants {
   static const String appName = 'Refresh PBMA';
 
   /// API Configuration
-  static const String baseUrl = 'https://api.example.com'; // TODO: Update with actual API URL
+  static const String baseUrl = 'https://api.example.com';
   static const int apiTimeout = 30; // seconds
 
   /// Animation Durations
@@ -60,11 +60,15 @@ class AppConstants {
   static Widget darkSystemOverlay({required Widget child}) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.background, // Dark status bar matching app bar
-        statusBarIconBrightness: Brightness.light, // Light icons for dark status bar
+        statusBarColor:
+            AppColors.background, // Dark status bar matching app bar
+        statusBarIconBrightness:
+            Brightness.light, // Light icons for dark status bar
         statusBarBrightness: Brightness.dark, // iOS: dark status bar
-        systemNavigationBarColor: AppColors.lightBackground, // Light bottom nav frame
-        systemNavigationBarIconBrightness: Brightness.dark, // Dark icons for light nav
+        systemNavigationBarColor:
+            AppColors.lightBackground, // Light bottom nav frame
+        systemNavigationBarIconBrightness:
+            Brightness.dark, // Dark icons for light nav
       ),
       child: child,
     );
@@ -76,10 +80,12 @@ class AppConstants {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // Transparent status bar
-        statusBarIconBrightness: Brightness.dark, // Dark icons for light backgrounds
+        statusBarIconBrightness:
+            Brightness.dark, // Dark icons for light backgrounds
         statusBarBrightness: Brightness.light, // iOS: light status bar
         systemNavigationBarColor: AppColors.lightBackground, // Light bottom nav
-        systemNavigationBarIconBrightness: Brightness.dark, // Dark navigation icons
+        systemNavigationBarIconBrightness:
+            Brightness.dark, // Dark navigation icons
       ),
       child: child,
     );
@@ -91,10 +97,12 @@ class AppConstants {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // Transparent status bar
-        statusBarIconBrightness: Brightness.light, // Light icons for dark backgrounds
+        statusBarIconBrightness:
+            Brightness.light, // Light icons for dark backgrounds
         statusBarBrightness: Brightness.dark, // iOS: dark status bar
         systemNavigationBarColor: AppColors.background, // Dark bottom nav
-        systemNavigationBarIconBrightness: Brightness.light, // Light navigation icons
+        systemNavigationBarIconBrightness:
+            Brightness.light, // Light navigation icons
       ),
       child: child,
     );
@@ -107,8 +115,10 @@ extension SystemBarsExtension on Widget {
   Widget withDarkSystemOverlay() => AppConstants.darkSystemOverlay(child: this);
 
   /// Wrap widget with light system overlay (for auth screens with light backgrounds)
-  Widget withLightSystemOverlay() => AppConstants.lightSystemOverlay(child: this);
+  Widget withLightSystemOverlay() =>
+      AppConstants.lightSystemOverlay(child: this);
 
   /// Wrap widget with dark background overlay (for splash/welcome screens)
-  Widget withDarkBackgroundOverlay() => AppConstants.darkBackgroundOverlay(child: this);
+  Widget withDarkBackgroundOverlay() =>
+      AppConstants.darkBackgroundOverlay(child: this);
 }

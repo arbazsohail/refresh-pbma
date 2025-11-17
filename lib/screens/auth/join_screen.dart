@@ -4,6 +4,7 @@ import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/service_card.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/auto_scroll_banner.dart';
 import '../../routes/app_routes.dart';
 
 class JoinScreen extends StatelessWidget {
@@ -70,25 +71,25 @@ class JoinScreen extends StatelessWidget {
 
               SizedBox(height: Get.height * 0.05),
 
-              // Horizontal Scrolling Service Cards
-              SizedBox(
+              // Auto-scrolling Service Banner
+              AutoScrollBanner(
                 height: Get.height * 0.18,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  itemCount: services.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        right: index < services.length - 1 ? 16 : 0,
-                      ),
-                      child: ServiceCard(
-                        image: services[index]['image']!,
-                        label: services[index]['label']!,
-                      ),
-                    );
-                  },
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                scrollDuration: const Duration(milliseconds: 800),
+                pauseDuration: const Duration(seconds: 3),
+                children: services.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final service = entry.value;
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: index < services.length - 1 ? 16 : 0,
+                    ),
+                    child: ServiceCard(
+                      image: service['image']!,
+                      label: service['label']!,
+                    ),
+                  );
+                }).toList(),
               ),
               SizedBox(height: Get.height * 0.07),
 

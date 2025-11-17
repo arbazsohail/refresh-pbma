@@ -34,12 +34,17 @@ class ServiceCard extends StatelessWidget {
               // Image
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(image, fit: BoxFit.cover),
+                child: Image.asset(
+                  image,
+                  height: 80,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
 
               // Label
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 08),
+                padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Text(
                   label,
                   style: const TextStyle(

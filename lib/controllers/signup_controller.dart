@@ -146,7 +146,6 @@ class SignupController extends GetxController {
     isLoading.value = true;
 
     try {
-      // TODO: Implement actual sign up logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Navigate to verify email screen on success
@@ -198,11 +197,9 @@ class SignupController extends GetxController {
 
   // Open terms and conditions
   void openTerms() {
-    // TODO: Open terms and conditions page
   }
 
   // Open privacy policy
   void openPrivacyPolicy() {
-    // TODO: Open privacy policy page
   }
 }

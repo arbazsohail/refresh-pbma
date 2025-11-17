@@ -57,7 +57,6 @@ class CreateNewPasswordController extends GetxController {
     isLoading.value = true;
 
     try {
-      // TODO: Implement actual password change logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       Get.snackbar(

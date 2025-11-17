@@ -63,7 +63,6 @@ class VerifyOTPController extends GetxController {
     isLoading.value = true;
 
     try {
-      // TODO: Implement actual OTP verification logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Stop loading
@@ -109,7 +108,6 @@ class VerifyOTPController extends GetxController {
     if (!canResend.value) return;
 
     try {
-      // TODO: Implement actual resend OTP logic here
       await Future.delayed(const Duration(seconds: 1)); // Simulate API call
 
       Get.snackbar(

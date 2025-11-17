@@ -49,6 +49,15 @@ dependencies:
   # Confetti Animation
   confetti: ^0.8.0
 
+  # Pull to Refresh
+  pull_to_refresh: ^2.0.0
+
+  # Shimmer Effect
+  shimmer: ^3.0.0
+
+  # Animated Digit
+  animated_digit: ^3.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

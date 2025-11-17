@@ -57,7 +57,6 @@ class LoginController extends GetxController {
     isLoading.value = true;
 
     try {
-      // TODO: Implement actual sign in logic here
       await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Save login state
