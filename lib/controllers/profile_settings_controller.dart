@@ -137,7 +137,6 @@ class ProfileSettingsController extends GetxController {
   void deleteAccount() {
     Get.dialog(
       Dialog(
-        insetPadding: EdgeInsets.symmetric(horizontal: 20),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

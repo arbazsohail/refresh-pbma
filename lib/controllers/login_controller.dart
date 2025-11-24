@@ -63,8 +63,8 @@ class LoginController extends GetxController {
       final storage = Get.find<StorageService>();
       await storage.saveBool('is_logged_in', true);
 
-      // Navigate to main page on success
-      Get.offAllNamed(AppRoutes.mainPage);
+      // Navigate to biometric setup or main page
+      Get.offAllNamed(AppRoutes.biometricSetup);
     } catch (e) {
       Get.snackbar(
         'Error',

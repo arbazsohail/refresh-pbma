@@ -10,6 +10,7 @@ class StorageService extends GetxService {
   static const String _userNameKey = 'user_name';
   static const String _userEmailKey = 'user_email';
   static const String _isLoggedInKey = 'is_logged_in';
+  static const String _biometricEnabledKey = 'biometric_enabled';
 
   Future<StorageService> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -45,6 +46,13 @@ class StorageService extends GetxService {
   String? getUserName() => _prefs.getString(_userNameKey);
   String? getUserEmail() => _prefs.getString(_userEmailKey);
   bool isLoggedIn() => _prefs.getBool(_isLoggedInKey) ?? false;
+
+  // Biometric Management
+  Future<void> saveBiometricEnabled(bool enabled) async {
+    await _prefs.setBool(_biometricEnabledKey, enabled);
+  }
+
+  bool isBiometricEnabled() => _prefs.getBool(_biometricEnabledKey) ?? false;
 
   // Clear All Data
   Future<void> clearAll() async {

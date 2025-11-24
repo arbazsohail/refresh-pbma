@@ -157,9 +157,9 @@ class SettingsController extends GetxController {
                       onPressed: () {
                         // Clear user data
                         _storageService.clearAll();
-                        // Navigate to login screen
+                        // Navigate to join screen
                         Get.back();
-                        Get.offAllNamed('/login');
+                        Get.offAllNamed('/join');
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.red,

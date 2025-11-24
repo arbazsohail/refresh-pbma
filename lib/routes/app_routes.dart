@@ -12,6 +12,7 @@ class AppRoutes {
   static const String createNewPassword = '/create-new-password';
   static const String verifyEmail = '/verify-email';
   static const String verifyOTP = '/verify-otp';
+  static const String biometricSetup = '/biometric-setup';
 
   // Main App
   static const String mainPage = '/main';

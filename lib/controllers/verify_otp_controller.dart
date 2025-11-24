@@ -85,7 +85,7 @@ class VerifyOTPController extends GetxController {
           VerificationSuccessDialog(
             onOkPressed: () {
               Get.back(); // Close dialog
-              Get.offAllNamed(AppRoutes.mainPage); // Navigate to main page
+              Get.offAllNamed(AppRoutes.biometricSetup); // Navigate to biometric setup
             },
           ),
           barrierDismissible: false,

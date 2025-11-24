@@ -8,6 +8,7 @@ import '../screens/auth/verify_email_screen.dart';
 import '../screens/auth/verify_otp_screen.dart';
 import '../screens/auth/forgot_password_screen.dart';
 import '../screens/auth/create_new_password_screen.dart';
+import '../screens/auth/biometric_setup_screen.dart';
 import '../screens/main/main_page.dart';
 import '../screens/notification/notification_screen.dart';
 import '../screens/profile/profile_settings_screen.dart';
@@ -48,6 +49,7 @@ import '../controllers/terms_and_conditions_controller.dart';
 import '../controllers/privacy_policy_controller.dart';
 import '../controllers/payment_application_controller.dart';
 import '../controllers/payment_questionnaire_controller.dart';
+import '../controllers/biometric_setup_controller.dart';
 
 class AppPages {
   static final routes = [
@@ -124,6 +126,16 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut<CreateNewPasswordController>(
             () => CreateNewPasswordController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.biometricSetup,
+      page: () => const BiometricSetupScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<BiometricSetupController>(() => BiometricSetupController());
       }),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
