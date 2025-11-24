@@ -28,18 +28,8 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   String _getInitialRoute() {
-    final storage = Get.find<StorageService>();
-    final onboardingCompleted = storage.getBool('onboarding_completed') ?? false;
-    final isLoggedIn = storage.getBool('is_logged_in') ?? false;
-
-    // If onboarding not completed, show onboarding
-    if (!onboardingCompleted) {
-      return AppRoutes.onboarding;
-    }
-
-    // If logged in, go to main page
-    // Otherwise, go to join screen
-    return isLoggedIn ? AppRoutes.mainPage : AppRoutes.join;
+    // Always start with splash screen
+    return AppRoutes.splash;
   }
 
   @override

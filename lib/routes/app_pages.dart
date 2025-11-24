@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'app_routes.dart';
+import '../screens/splash/splash_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/auth/join_screen.dart';
 import '../screens/auth/login_screen.dart';
@@ -50,9 +51,20 @@ import '../controllers/privacy_policy_controller.dart';
 import '../controllers/payment_application_controller.dart';
 import '../controllers/payment_questionnaire_controller.dart';
 import '../controllers/biometric_setup_controller.dart';
+import '../controllers/splash_controller.dart';
 
 class AppPages {
   static final routes = [
+    GetPage(
+      name: AppRoutes.splash,
+      page: () => const SplashScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<SplashController>(() => SplashController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
     GetPage(
       name: AppRoutes.onboarding,
       page: () => const OnboardingScreen(),

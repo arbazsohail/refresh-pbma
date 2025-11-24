@@ -35,7 +35,6 @@ dependencies:
   intl: ^0.19.0
 
   # Flutter Native Splash
-  flutter_native_splash: ^2.4.6
 
   # SVG Support
   flutter_svg: ^2.2.2
