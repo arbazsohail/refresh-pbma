@@ -5,6 +5,7 @@ import '../../../utils/app_colors.dart';
 import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/auto_scroll_banner.dart';
 import '../../../widgets/service_card.dart';
+import '../../../widgets/action_card.dart';
 import '../../../controllers/explore_controller.dart';
 
 class ExplorePage extends GetView<ExploreController> {
@@ -67,85 +68,39 @@ class ExplorePage extends GetView<ExploreController> {
               ),
             ),
 
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
+
             // Ready to Book? Card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    // Bubbles decoration (background layer)
-                    Positioned(
-                      right: -10,
-                      top: -10,
-                      child: Opacity(
-                        opacity: 0.2,
-                        child: SvgPicture.asset(
-                          'assets/icons/bubbles.svg',
-                          color: Colors.white.withValues(alpha: 0.7),
-                         
-                        ),
-                      ),
-                    ),
-                    // Content (foreground layer)
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Ready to Book?',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'DMSans',
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Choose your preferred service and time.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'DMSans',
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: controller.bookNow,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 12,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Text(
-                            'Book Now',
-                            style: TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'DMSans',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              child: ActionCard(
+                title: 'Ready to Book?',
+                subtitle: 'Choose your preferred service and time.',
+                buttonText: 'Book Now',
+                onPressed: controller.bookNow,
+                backgroundColor: AppColors.primary,
+                btnTextColor: AppColors.primary,
+                imageBgColor: Color(0xff2E6DA1),
+                decorationIcon: 'assets/icons/bubbles.svg',
               ),
             ),
+
+            const SizedBox(height: 16),
+
+            // Apply for Payment Options Card
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ActionCard(
+                title: 'Apply for Payment\nOptions!',
+                buttonText: 'Apply Now',
+                onPressed: controller.applyPayment,
+                backgroundColor: AppColors.secondary,
+                btnTextColor: AppColors.primary,
+                imageBgColor: AppColors.primary,
+                decorationIcon: 'assets/icons/wallet_payment.svg',
+              ),
+            ),
+
             const SizedBox(height: 24),
 
             // Latest From Our Blog Section
@@ -188,7 +143,11 @@ class ExplorePage extends GetView<ExploreController> {
                                     width: double.infinity,
                                     height: 100,
                                     fit: BoxFit.cover,
-                                    loadingBuilder: (context, child, loadingProgress) {
+                                    loadingBuilder: (
+                                      context,
+                                      child,
+                                      loadingProgress,
+                                    ) {
                                       if (loadingProgress == null) return child;
                                       return Container(
                                         width: double.infinity,

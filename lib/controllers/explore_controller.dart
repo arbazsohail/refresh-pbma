@@ -91,6 +91,10 @@ class ExploreController extends GetxController {
     );
   }
 
+  void applyPayment() {
+    Get.toNamed('/payment-application');
+  }
+
   void callUs() {
     // TODO: Implement call logic
   }

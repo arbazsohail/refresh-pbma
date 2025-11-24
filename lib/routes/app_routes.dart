@@ -29,4 +29,6 @@ class AppRoutes {
   static const String qrScanner = '/qr-scanner';
   static const String termsAndConditions = '/terms-and-conditions';
   static const String privacyPolicy = '/privacy-policy';
+  static const String paymentApplication = '/payment-application';
+  static const String paymentQuestionnaire = '/payment-questionnaire';
 }

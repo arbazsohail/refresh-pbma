@@ -21,6 +21,8 @@ import '../screens/earn/how_to_earn_screen.dart';
 import '../screens/scanner/qr_scanner_screen.dart';
 import '../screens/legal/terms_and_conditions_screen.dart';
 import '../screens/legal/privacy_policy_screen.dart';
+import '../screens/payment/payment_application_screen.dart';
+import '../screens/payment/payment_questionnaire_screen.dart';
 import '../controllers/onboarding_controller.dart';
 import '../controllers/login_controller.dart';
 import '../controllers/signup_controller.dart';
@@ -44,6 +46,8 @@ import '../controllers/explore_controller.dart';
 import '../controllers/wallet_controller.dart';
 import '../controllers/terms_and_conditions_controller.dart';
 import '../controllers/privacy_policy_controller.dart';
+import '../controllers/payment_application_controller.dart';
+import '../controllers/payment_questionnaire_controller.dart';
 
 class AppPages {
   static final routes = [
@@ -251,6 +255,26 @@ class AppPages {
       page: () => const PrivacyPolicyScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut<PrivacyPolicyController>(() => PrivacyPolicyController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.paymentApplication,
+      page: () => const PaymentApplicationScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<PaymentApplicationController>(() => PaymentApplicationController());
+      }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.paymentQuestionnaire,
+      page: () => const PaymentQuestionnaireScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<PaymentQuestionnaireController>(() => PaymentQuestionnaireController());
       }),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
