@@ -1,4 +1,4 @@
-package com.example.refreshpbma
+package com.app.refreshpbma.sk
 
 import android.os.Build
 import android.os.Bundle
