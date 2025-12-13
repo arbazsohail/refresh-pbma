@@ -25,55 +25,38 @@ class AutoScrollBanner extends StatefulWidget {
 
 class _AutoScrollBannerState extends State<AutoScrollBanner> {
   late ScrollController _scrollController;
-  Timer? _timer;
-  bool _isScrolling = false;
+  late Timer _timer;
+  bool _isInteracting = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _startAutoScroll();
+    // Start scrolling after build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startAutoScroll();
+    });
   }
 
   void _startAutoScroll() {
-    _timer = Timer.periodic(widget.pauseDuration, (timer) {
-      if (!_isScrolling && _scrollController.hasClients) {
-        _autoScroll();
+    const scrollSpeed = 50.0; // pixels per second
+    const tickDuration = Duration(milliseconds: 30);
+    const step = scrollSpeed * 0.03; // distance per tick
+
+    _timer = Timer.periodic(tickDuration, (timer) {
+      if (_isInteracting) return;
+
+      if (_scrollController.hasClients) {
+        final currentScroll = _scrollController.offset;
+        double target = currentScroll + step;
+        _scrollController.jumpTo(target);
       }
     });
   }
 
-  Future<void> _autoScroll() async {
-    if (!_scrollController.hasClients) return;
-
-    _isScrolling = true;
-
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-
-    // If we're at or near the end, scroll back to start
-    if (currentScroll >= maxScroll - 10) {
-      await _scrollController.animateTo(
-        0,
-        duration: widget.scrollDuration,
-        curve: Curves.easeInOut,
-      );
-    } else {
-      // Otherwise, scroll forward by the offset amount
-      final nextScroll = (currentScroll + widget.scrollOffset).clamp(0.0, maxScroll);
-      await _scrollController.animateTo(
-        nextScroll,
-        duration: widget.scrollDuration,
-        curve: Curves.easeInOut,
-      );
-    }
-
-    _isScrolling = false;
-  }
-
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     _scrollController.dispose();
     super.dispose();
   }
@@ -82,14 +65,34 @@ class _AutoScrollBannerState extends State<AutoScrollBanner> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
-      child: ListView.builder(
-        controller: _scrollController,
-        scrollDirection: Axis.horizontal,
-        padding: widget.padding,
-        itemCount: widget.children.length,
-        itemBuilder: (context, index) {
-          return widget.children[index];
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification is ScrollStartNotification) {
+            // User started dragging
+            if (notification.dragDetails != null) {
+              setState(() {
+                _isInteracting = true;
+              });
+            }
+          } else if (notification is ScrollEndNotification) {
+            // Drag or momentum finished
+            setState(() {
+              _isInteracting = false;
+            });
+          }
+          return false;
         },
+        child: ListView.builder(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          padding: widget.padding,
+          // Infinite item count for continuous loop effect
+          itemBuilder: (context, index) {
+            // Use modulo to loop through children
+            final itemIndex = index % widget.children.length;
+            return widget.children[itemIndex];
+          },
+        ),
       ),
     );
   }

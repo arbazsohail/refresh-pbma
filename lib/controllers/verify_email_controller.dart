@@ -3,15 +3,22 @@ import '../routes/app_routes.dart';
 
 class VerifyEmailController extends GetxController {
   final RxString email = ''.obs;
+  final RxString phoneNumber = ''.obs;
+  final RxString selectedMethod = 'email'.obs; // 'email' or 'phone'
   final RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    // Get email from arguments
+    // Get email and phone from arguments
     final args = Get.arguments as Map<String, dynamic>?;
-    if (args != null && args.containsKey('email')) {
-      email.value = args['email'] as String;
+    if (args != null) {
+      if (args.containsKey('email')) {
+        email.value = args['email'] as String;
+      }
+      if (args.containsKey('phoneNumber')) {
+        phoneNumber.value = args['phoneNumber'] as String;
+      }
     }
   }
 
@@ -34,7 +41,19 @@ class VerifyEmailController extends GetxController {
     return '$masked@$domain';
   }
 
-  // Send OTP to email
+  // Mask phone for display
+  String get maskedPhone {
+    if (phoneNumber.value.isEmpty) return '';
+    // Simple masking: show last 4 digits
+    if (phoneNumber.value.length < 4) return phoneNumber.value;
+    return '**** **** ${phoneNumber.value.substring(phoneNumber.value.length - 4)}';
+  }
+
+  void selectMethod(String method) {
+    selectedMethod.value = method;
+  }
+
+  // Send OTP to email or phone
   Future<void> getOTP() async {
     isLoading.value = true;
 
@@ -46,7 +65,8 @@ class VerifyEmailController extends GetxController {
         AppRoutes.verifyOTP,
         arguments: {
           'email': email.value,
-          'verificationType': 'email',
+          'phoneNumber': phoneNumber.value,
+          'verificationType': selectedMethod.value,
         },
       );
     } catch (e) {

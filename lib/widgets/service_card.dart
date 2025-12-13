@@ -20,6 +20,8 @@ class ServiceCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: Get.width * 0.50,
+        // Fill the parent height to ensure all cards are same height
+        height: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(12),
@@ -31,14 +33,15 @@ class ServiceCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  image,
-                  height: 80,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              // Image - Use Expanded to fill available space and prevent overflow
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    image,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 

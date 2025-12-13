@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       height: 140,
       decoration: BoxDecoration(
-        color: AppColors.secondary,
+        color: AppColors.primary,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(24),
           bottomRight: Radius.circular(24),
@@ -166,20 +166,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: leadingText!.split('\n').map((line) {
-                              final isFirstLine = leadingText!.split('\n').first == line;
-                              return Text(
-                                line,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: isFirstLine ? 14 : 20,
-                                  fontWeight: isFirstLine ? FontWeight.w400 : FontWeight.bold,
-                                  fontFamily: 'DMSans',
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              );
-                            }).toList(),
+                            children:
+                                leadingText!.split('\n').map((line) {
+                                  final isFirstLine =
+                                      leadingText!.split('\n').first == line;
+                                  return Text(
+                                    line,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: isFirstLine ? 14 : 20,
+                                      fontWeight:
+                                          isFirstLine
+                                              ? FontWeight.w400
+                                              : FontWeight.bold,
+                                      fontFamily: 'DMSans',
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }).toList(),
                           ),
                         ),
 

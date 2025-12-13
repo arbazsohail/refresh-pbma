@@ -18,8 +18,6 @@ class HowToEarnScreen extends GetView<HowToEarnController> {
         showNotification: false,
         showSettings: false,
         onBackTap: () => Get.back(),
-        
-       
       ),
       body: Obx(
         () => ListView.separated(
@@ -30,26 +28,32 @@ class HowToEarnScreen extends GetView<HowToEarnController> {
             final option = controller.earnOptions[optionIndex];
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // Option Header
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    option.optionTitle,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'DMSans',
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 0,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      // color: AppColors.secondary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      option.optionTitle,
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'DMSans',
+                        height: 1.0,
+                        letterSpacing: 0.0,
+                      ),
                     ),
                   ),
                 ),

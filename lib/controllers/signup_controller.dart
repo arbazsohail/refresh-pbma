@@ -12,7 +12,8 @@ class SignupController extends GetxController {
 
   // Text controllers for Step 2
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   // Form keys
   final GlobalKey<FormState> step1FormKey = GlobalKey<FormState>();
@@ -151,7 +152,10 @@ class SignupController extends GetxController {
       // Navigate to verify email screen on success
       Get.toNamed(
         AppRoutes.verifyEmail,
-        arguments: {'email': emailController.text},
+        arguments: {
+          'email': emailController.text,
+          'phoneNumber': phoneController.text,
+        },
       );
     } catch (e) {
       Get.snackbar(
@@ -196,10 +200,8 @@ class SignupController extends GetxController {
   }
 
   // Open terms and conditions
-  void openTerms() {
-  }
+  void openTerms() {}
 
   // Open privacy policy
-  void openPrivacyPolicy() {
-  }
+  void openPrivacyPolicy() {}
 }

@@ -72,16 +72,20 @@ class VerifyOTPScreen extends GetView<VerifyOTPController> {
                 const SizedBox(height: 16),
 
                 // Subtitle
-                const Center(
-                  child: Text(
-                    'Enter the verification code we just\nsent on your email address',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.greyText,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'DMSans',
-                      height: 1.5,
+                Center(
+                  child: Obx(
+                    () => Text(
+                      controller.verificationType.value == 'phone'
+                          ? 'Enter the verification code we just\nsent on your text message'
+                          : 'Enter the verification code we just\nsent on your email address',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: AppColors.greyText,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'DMSans',
+                        height: 1.5,
+                      ),
                     ),
                   ),
                 ),

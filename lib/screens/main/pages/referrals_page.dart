@@ -23,7 +23,6 @@ class ReferralsPage extends GetView<ReferralsController> {
         title: 'Referrals',
         showNotification: true,
         showSettings: true,
-       
       ),
       body: Obx(
         () =>
@@ -128,14 +127,19 @@ class ReferralsPage extends GetView<ReferralsController> {
                                         Row(
                                           children: [
                                             AnimatedDigitWidget(
-                                              value: controller.totalReferrals.value,
+                                              value:
+                                                  controller
+                                                      .totalReferrals
+                                                      .value,
                                               textStyle: const TextStyle(
                                                 color: Color(0xFF141413),
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.w600,
                                                 fontFamily: 'DMSans',
                                               ),
-                                              duration: const Duration(milliseconds: 1500),
+                                              duration: const Duration(
+                                                milliseconds: 1500,
+                                              ),
                                               curve: Curves.easeOutCubic,
                                             ),
                                             Text(
@@ -232,7 +236,7 @@ class ReferralsPage extends GetView<ReferralsController> {
 
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/icons/medal.svg',
+                                        'assets/icons/new_point_tiers.svg',
                                         width: 24,
                                         height: 24,
                                       ),
@@ -270,7 +274,7 @@ class ReferralsPage extends GetView<ReferralsController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
-                                        'assets/icons/bag.svg',
+                                        'assets/icons/new_bag.svg',
                                         width: 24,
                                         height: 24,
                                       ),
@@ -308,8 +312,7 @@ class ReferralsPage extends GetView<ReferralsController> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
-                              },
+                              onTap: () {},
                               child: const Text(
                                 'View all',
                                 style: TextStyle(

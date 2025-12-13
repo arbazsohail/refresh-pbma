@@ -51,6 +51,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 ),
               ),
 
+              const Spacer(),
               // PageView with content
               SizedBox(
                 height: Get.height * 0.55,
@@ -212,7 +213,7 @@ class _OnboardingPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 16),
 
@@ -222,10 +223,7 @@ class _OnboardingPage extends StatelessWidget {
             height: 280,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(96),
-              border: Border.all(
-                color: AppColors.secondary,
-                width: 3,
-              ),
+              border: Border.all(color: AppColors.secondary, width: 3),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(93), // 96 - 3 (border width)

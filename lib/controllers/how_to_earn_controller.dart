@@ -13,7 +13,7 @@ class HowToEarnController extends GetxController {
   void loadEarnOptions() {
     earnOptions.value = [
       EarnOptionModel(
-        optionTitle: 'Option 1: Refer a Friend',
+        optionTitle: 'Option 1:  Refer a Friend',
         steps: [
           EarnStepModel(
             stepNumber: 'Step 1',
@@ -42,7 +42,7 @@ class HowToEarnController extends GetxController {
         ],
       ),
       EarnOptionModel(
-        optionTitle: 'Option 2: Check In at Each Visit',
+        optionTitle: 'Option 2:  Check In at Each Visit',
         steps: [
           EarnStepModel(
             stepNumber: 'Step 1',

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:refresh_pbma/controllers/home_page_controller.dart';
 import '../../../utils/app_colors.dart';
 import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/auto_scroll_banner.dart';
 import '../../../widgets/service_card.dart';
 import '../../../widgets/action_card.dart';
-import '../../../controllers/explore_controller.dart';
 
-class ExplorePage extends GetView<ExploreController> {
-  const ExplorePage({super.key});
+class HomePage extends GetView<HomePageController> {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppBar(
-        title: 'Explore',
+        leadingText: 'Welcome Back,\nJayy!',
         showNotification: true,
         showSettings: true,
       ),
@@ -98,6 +98,27 @@ class ExplorePage extends GetView<ExploreController> {
                 btnTextColor: AppColors.primary,
                 imageBgColor: AppColors.primary,
                 decorationIcon: 'assets/icons/wallet_payment.svg',
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Manage Medications Card
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ActionCard(
+                title: 'Manage\nMedications!',
+                buttonText: 'Manage',
+                onPressed: () {}, // Empty callback as requested
+                secondButtonText: 'Apply Now',
+                onSecondButtonPressed: () {}, // Empty callback as requested
+                buttonWidth: 100,
+                buttonHeight: 41,
+                backgroundColor: const Color(0xFF0F3461), // Updated dark blue
+                btnTextColor: AppColors.primary,
+                imageBgColor: const Color(0xFF2E6DA1), // Matches Book Now bg
+                decorationIcon: 'assets/icons/medications.svg',
+                useOriginalDecoration: true,
               ),
             ),
 

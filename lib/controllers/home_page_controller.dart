@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import '../models/blog_model.dart';
 import '../models/faq_model.dart';
 
-class ExploreController extends GetxController {
+class HomePageController extends GetxController {
   final RxList<Map<String, String>> popularServices =
       <Map<String, String>>[].obs;
   final RxList<BlogModel> blogs = <BlogModel>[].obs;

@@ -121,7 +121,7 @@ class LoginScreen extends GetView<LoginController> {
                                       controller.rememberMe.value
                                           ? const Icon(
                                             Icons.check,
-                                            size: 16,
+                                            size: 12,
                                             color: AppColors.white,
                                           )
                                           : null,
@@ -241,7 +241,7 @@ class LoginScreen extends GetView<LoginController> {
                     icon: 'assets/icons/apple.svg',
                     iconSpacing: 10,
                   ),
-                  SizedBox(height: Get.height*0.08),
+                  SizedBox(height: Get.height * 0.08),
 
                   // Sign up text
                   Center(

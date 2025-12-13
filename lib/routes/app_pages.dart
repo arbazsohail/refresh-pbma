@@ -33,7 +33,7 @@ import '../controllers/verify_otp_controller.dart';
 import '../controllers/forgot_password_controller.dart';
 import '../controllers/create_new_password_controller.dart';
 import '../controllers/main_controller.dart';
-import '../controllers/home_controller.dart';
+import '../controllers/rewards_controller.dart';
 import '../controllers/notification_controller.dart';
 import '../controllers/profile_settings_controller.dart';
 import '../controllers/change_password_settings_controller.dart';
@@ -44,7 +44,7 @@ import '../controllers/referrals_controller.dart';
 import '../controllers/referral_details_controller.dart';
 import '../controllers/points_tiers_controller.dart';
 import '../controllers/how_to_earn_controller.dart';
-import '../controllers/explore_controller.dart';
+import '../controllers/home_page_controller.dart';
 import '../controllers/wallet_controller.dart';
 import '../controllers/terms_and_conditions_controller.dart';
 import '../controllers/privacy_policy_controller.dart';
@@ -158,9 +158,9 @@ class AppPages {
       page: () => const MainPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut<MainController>(() => MainController());
-        Get.lazyPut<HomeController>(() => HomeController());
+        Get.lazyPut<HomePageController>(() => HomePageController());
         Get.lazyPut<ReferralsController>(() => ReferralsController());
-        Get.lazyPut<ExploreController>(() => ExploreController());
+        Get.lazyPut<RewardsController>(() => RewardsController());
         Get.lazyPut<WalletController>(() => WalletController());
       }),
       transition: Transition.fadeIn,

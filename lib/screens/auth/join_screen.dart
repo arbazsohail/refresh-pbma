@@ -73,23 +73,24 @@ class JoinScreen extends StatelessWidget {
 
               // Auto-scrolling Service Banner
               AutoScrollBanner(
-                height: Get.height * 0.18,
+                // Fixed height to fit content perfectly without extra whitespace
+                height: 130,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                scrollDuration: const Duration(milliseconds: 800),
-                pauseDuration: const Duration(seconds: 3),
-                children: services.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final service = entry.value;
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      right: index < services.length - 1 ? 16 : 0,
-                    ),
-                    child: ServiceCard(
-                      image: service['image']!,
-                      label: service['label']!,
-                    ),
-                  );
-                }).toList(),
+                // remove pauseDuration as it is not used in new implementation
+                children:
+                    services.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final service = entry.value;
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          right: index < services.length - 1 ? 16 : 0,
+                        ),
+                        child: ServiceCard(
+                          image: service['image']!,
+                          label: service['label']!,
+                        ),
+                      );
+                    }).toList(),
               ),
               SizedBox(height: Get.height * 0.07),
 

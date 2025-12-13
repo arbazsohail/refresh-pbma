@@ -60,67 +60,152 @@ class VerifyEmailScreen extends GetView<VerifyEmailController> {
                 const SizedBox(height: 40),
 
                 // Email card
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppColors.lightGray,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.secondary, width: 1.5),
-                  ),
-                  child: Row(
-                    children: [
-                      // Email icon
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: const BoxDecoration(
-                          color: AppColors.secondary,
-                          shape: BoxShape.circle,
+                Obx(() {
+                  final isSelected = controller.selectedMethod.value == 'email';
+                  return GestureDetector(
+                    onTap: () => controller.selectMethod('email'),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGray,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color:
+                              isSelected
+                                  ? AppColors.secondary
+                                  : AppColors.lightBorder,
+                          width: 1.5,
                         ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            'assets/icons/message.svg',
-                            width: 28,
-                            height: 28,
+                      ),
+                      child: Row(
+                        children: [
+                          // Email icon
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: const BoxDecoration(
+                              color: AppColors.secondary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/icons/message.svg',
+                                width: 28,
+                                height: 28,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
 
-                      const SizedBox(width: 16),
+                          const SizedBox(width: 16),
 
-                      // Email text
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Via Email:',
-                              style: TextStyle(
-                                color: AppColors.blackText,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'DMSans',
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Obx(
-                              () => Text(
-                                controller.maskedEmail,
-                                style: const TextStyle(
-                                  color: AppColors.blackText,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'DMSans',
+                          // Email text
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Via Email:',
+                                  style: TextStyle(
+                                    color: AppColors.blackText,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'DMSans',
+                                  ),
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  controller.maskedEmail,
+                                  style: const TextStyle(
+                                    color: AppColors.blackText,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'DMSans',
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+
+                const SizedBox(height: 16),
+
+                // Phone card
+                Obx(() {
+                  final isSelected = controller.selectedMethod.value == 'phone';
+                  return GestureDetector(
+                    onTap: () => controller.selectMethod('phone'),
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGray,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color:
+                              isSelected
+                                  ? AppColors.secondary
+                                  : AppColors.lightBorder,
+                          width: 1.5,
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                      child: Row(
+                        children: [
+                          // Phone icon
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: const BoxDecoration(
+                              color: AppColors.secondary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.phone_android,
+                                color: Colors.white,
+                                size: 28,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(width: 16),
+
+                          // Phone text
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Via Text Message:',
+                                  style: TextStyle(
+                                    color: AppColors.blackText,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'DMSans',
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  controller.maskedPhone,
+                                  style: const TextStyle(
+                                    color: AppColors.blackText,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'DMSans',
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
 
                 SizedBox(height: Get.height * 0.05),
                 // Get OTP button

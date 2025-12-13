@@ -385,30 +385,41 @@ class SignupScreen extends GetView<SignupController> {
             // Terms and conditions checkbox with text
             Obx(
               () => GestureDetector(
-                onTap: () => controller.toggleTerms(!controller.agreeToTerms.value),
+                onTap:
+                    () =>
+                        controller.toggleTerms(!controller.agreeToTerms.value),
+                // Ensure taps on whitespace/text are caught
+                behavior: HitTestBehavior.opaque,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                        color: controller.agreeToTerms.value
-                            ? AppColors.secondary
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: AppColors.secondary,
-                          width: 2,
+                    const SizedBox(width: 05),
+                    Padding(
+                      // Push checkbox down slightly to align with first line of text
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Container(
+                        width: 17,
+                        height: 17,
+                        decoration: BoxDecoration(
+                          color:
+                              controller.agreeToTerms.value
+                                  ? AppColors.secondary
+                                  : Colors.transparent,
+                          border: Border.all(
+                            color: AppColors.secondary,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        borderRadius: BorderRadius.circular(4),
+                        child:
+                            controller.agreeToTerms.value
+                                ? const Icon(
+                                  Icons.check,
+                                  size: 12,
+                                  color: AppColors.white,
+                                )
+                                : null,
                       ),
-                      child: controller.agreeToTerms.value
-                          ? const Icon(
-                              Icons.check,
-                              size: 10,
-                              color: AppColors.white,
-                            )
-                          : null,
                     ),
                     const SizedBox(width: 12),
                     Expanded(
