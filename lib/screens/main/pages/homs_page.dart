@@ -57,33 +57,31 @@ class HomePage extends GetView<HomePageController> {
             const SizedBox(height: 16),
 
             // Auto-scrolling Popular Services
-            Obx(
-              () => AutoScrollBanner(
-                height: Get.height * 0.15,
-                padding: const EdgeInsets.only(left: 20),
-                scrollDuration: const Duration(milliseconds: 800),
-                pauseDuration: const Duration(seconds: 3),
-                children:
-                    controller.popularServices.asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final service = entry.value;
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          right:
-                              index < controller.popularServices.length - 1
-                                  ? 16
-                                  : 20,
+            AutoScrollBanner(
+              height: Get.height * 0.15,
+              padding: const EdgeInsets.only(left: 20),
+              scrollDuration: const Duration(milliseconds: 800),
+              pauseDuration: const Duration(seconds: 3),
+              children:
+                  controller.popularServices.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final service = entry.value;
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        right:
+                            index < controller.popularServices.length - 1
+                                ? 16
+                                : 20,
+                      ),
+                      child: GestureDetector(
+                        onTap: () => _launchURL(service['url']!),
+                        child: ServiceCard(
+                          image: service['image']!,
+                          label: service['label']!,
                         ),
-                        child: GestureDetector(
-                           onTap: () => _launchURL(service['url']!),
-                          child: ServiceCard(
-                            image: service['image']!,
-                            label: service['label']!,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-              ),
+                      ),
+                    );
+                  }).toList(),
             ),
 
             const SizedBox(height: 24),
@@ -159,19 +157,23 @@ class HomePage extends GetView<HomePageController> {
 
             // Blog Cards
             Obx(
-              () => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children:
-                      controller.blogs.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final blog = entry.value;
-                        return Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              right:
-                                  index < controller.blogs.length - 1 ? 12 : 0,
-                            ),
+              () => AutoScrollBanner(
+                height: 220,
+                padding: const EdgeInsets.only(left: 20),
+                scrollDuration: const Duration(milliseconds: 800),
+                pauseDuration: const Duration(seconds: 3),
+                children:
+                    controller.blogs.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final blog = entry.value;
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          right: index < controller.blogs.length - 1 ? 16 : 20,
+                        ),
+                        child: GestureDetector(
+                          onTap: () => _launchURL(blog.url),
+                          child: Container(
+                            width: 200,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -179,8 +181,8 @@ class HomePage extends GetView<HomePageController> {
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
                                     blog.image,
-                                    width: double.infinity,
-                                    height: 100,
+                                    width: 200,
+                                    height: 120,
                                     fit: BoxFit.cover,
                                     loadingBuilder: (
                                       context,
@@ -189,8 +191,8 @@ class HomePage extends GetView<HomePageController> {
                                     ) {
                                       if (loadingProgress == null) return child;
                                       return Container(
-                                        width: double.infinity,
-                                        height: 100,
+                                        width: 200,
+                                        height: 120,
                                         color: const Color(0xFFF6F6F6),
                                         child: const Center(
                                           child: CircularProgressIndicator(
@@ -202,8 +204,8 @@ class HomePage extends GetView<HomePageController> {
                                     },
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
-                                        width: double.infinity,
-                                        height: 100,
+                                        width: 200,
+                                        height: 120,
                                         color: const Color(0xFFF6F6F6),
                                         child: const Icon(
                                           Icons.image,
@@ -213,25 +215,25 @@ class HomePage extends GetView<HomePageController> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 12),
                                 Text(
                                   blog.title,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     color: Color(0xFF141413),
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'DMSans',
                                     height: 1.3,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 8),
                                 const Text(
                                   'Read more',
                                   style: TextStyle(
                                     color: AppColors.secondary,
-                                    fontSize: 11,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: 'DMSans',
                                   ),
@@ -239,9 +241,9 @@ class HomePage extends GetView<HomePageController> {
                               ],
                             ),
                           ),
-                        );
-                      }).toList(),
-                ),
+                        ),
+                      );
+                    }).toList(),
               ),
             ),
             const SizedBox(height: 24),
@@ -332,6 +334,26 @@ class HomePage extends GetView<HomePageController> {
                           ],
                         );
                       }).toList(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Explore More FAQ's Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GestureDetector(
+                onTap: () => Get.toNamed('/faq'),
+                child: const Center(
+                  child: Text(
+                    'Explore More FAQ\'s',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.secondary,
+                      fontFamily: 'DMSans',
+                    ),
+                  ),
                 ),
               ),
             ),

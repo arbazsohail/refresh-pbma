@@ -239,7 +239,7 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.pointsTiers,
-      page: () => const PointsTiersScreen(),
+      page: () =>  PointsTiersScreen(),
       binding: BindingsBuilder(() {
         Get.lazyPut<PointsTiersController>(() => PointsTiersController());
       }),

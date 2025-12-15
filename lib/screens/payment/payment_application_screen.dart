@@ -11,14 +11,37 @@ class PaymentApplicationScreen extends GetView<PaymentApplicationController> {
 
   @override
   Widget build(BuildContext context) {
-    return AppConstants.lightSystemOverlay(
+    return AppConstants.darkSystemOverlay(
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: const CustomAppBar(
-          title: 'Rewards Payment Terms',
+          title: '',
           showBackButton: true,
           showNotification: false,
           showSettings: false,
+        ),
+        bottomNavigationBar: Container(
+          child: // Continue button
+              Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: Get.height * 0.04,
+              horizontal: Get.width * 0.05,
+            ),
+            child: Obx(
+              () => CustomButton(
+                title: 'Continue',
+                onTap: controller.continueToForm,
+                height: 54,
+                backgroundColor: AppColors.primary,
+                textColor: AppColors.white,
+                borderRadius: 50,
+                margin: 0,
+                horizontalPadding: 36,
+                titleFontSize: 16,
+                loading: controller.isLoading.value,
+              ),
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -28,26 +51,32 @@ class PaymentApplicationScreen extends GetView<PaymentApplicationController> {
               const SizedBox(height: 8),
 
               // Title
-              const Text(
-                'Rewards Payment Terms\nApplication',
-                style: TextStyle(
-                  color: Color(0xFF141413),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'DMSans',
+              Center(
+                child: const Text(
+                  textAlign: TextAlign.center,
+                  'Rewards Payment Terms\nApplication',
+                  style: TextStyle(
+                    color: Color(0xFF141413),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'DMSans',
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
               // Subtitle
-              const Text(
-                'Thank you for your interest in Refresh\'s in-house payment options.',
-                style: TextStyle(
-                  color: Color(0xFF141413),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'DMSans',
+              Center(
+                child: const Text(
+                  textAlign: TextAlign.center,
+                  'Thank you for your interest in Refresh\'s in-house payment options.',
+                  style: TextStyle(
+                    color: Color(0xFF141413),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'DMSans',
+                  ),
                 ),
               ),
 
@@ -71,22 +100,6 @@ class PaymentApplicationScreen extends GetView<PaymentApplicationController> {
               ),
 
               const SizedBox(height: 32),
-
-              // Continue button
-              Obx(
-                () => CustomButton(
-                  title: 'Continue',
-                  onTap: controller.continueToForm,
-                  height: 54,
-                  backgroundColor: AppColors.primary,
-                  textColor: AppColors.white,
-                  borderRadius: 50,
-                  margin: 0,
-                  horizontalPadding: 36,
-                  titleFontSize: 16,
-                  loading: controller.isLoading.value,
-                ),
-              ),
 
               const SizedBox(height: 24),
             ],

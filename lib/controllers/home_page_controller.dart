@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 import '../models/blog_model.dart';
 import '../models/faq_model.dart';
+import '../utils/app_constants.dart';
 
 class HomePageController extends GetxController {
-  final RxList<Map<String, String>> popularServices =
-      <Map<String, String>>[].obs;
+  final List<Map<String, String>> popularServices = AppConstants.popularServices;
   final RxList<BlogModel> blogs = <BlogModel>[].obs;
   final RxList<FAQModel> faqs = <FAQModel>[].obs;
   final RxInt expandedFaqIndex = (-1).obs;
@@ -16,32 +16,57 @@ class HomePageController extends GetxController {
   }
 
   void loadData() {
-    // Popular Services
-    popularServices.value = [
-       {'image': 'assets/images/join1.png', 'label': 'Smooth fine lines', 'url' : 'https://refreshpbma.com/ipl-photofacials/'},
-      {'image': 'assets/images/join2.png', 'label': 'Restore Volume', 'url' : 'https://refreshpbma.com/rha-fillers/'},
-      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Hair', 'url' : 'https://refreshpbma.com/laser-hair-removal/'},
-      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Tattoos', 'url' : 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'},
-      {'image': 'assets/images/join4.png', 'label': 'Lose Weight', 'url' : 'https://refreshpbma.com/lose-weight/'},
-      {'image': 'assets/images/join4.png', 'label': 'Tackle PCOS', 'url' : 'https://refreshpbma.com/pcos-support/'},
-      {'image': 'assets/images/join4.png', 'label': 'Tackle Hormones', 'url' : 'https://refreshpbma.com/female-hormone-replacement-therapy/'},
-      {'image': 'assets/images/join4.png', 'label': 'Oxygen Therapy', 'url' : 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'},
-      {'image': 'assets/images/join4.png', 'label': 'Nutrient Deficiency', 'url' : 'https://refreshpbma.com/iv-therapy/'},
-      {'image': 'assets/images/join4.png', 'label': 'Ablative Resurfacing', 'url' : 'https://refreshpbma.com/deka-co₂-fully-ablative-laser/'},
-      {'image': 'assets/images/join4.png', 'label': 'Plastic Surgery', 'url' : 'https://refreshpbma.com/plastic-surgery/'},
-    ];
-
-    // Blogs
+    // Blogs - Real data from refreshpbma.com/blog/
     blogs.value = [
       BlogModel(
-        image:
-            'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop',
-        title: 'Preventative Botox: Why Younger Clients Are Starting Early',
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/348s.jpg',
+        title: 'Preventative Botox: Why Younger Clients Are Starting Sooner',
+        url: 'https://refreshpbma.com/preventative-botox-why-younger-clients-are-starting-sooner/',
       ),
       BlogModel(
-        image:
-            'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=300&fit=crop',
-        title: 'The Ultimate Guide to Skincare Treatments',
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/04/patient-consulting-doctor-scaled-1.jpg',
+        title: 'Semaglutide & Tirzepatide: Breaking Down the Buzz Around Medical Weight Loss',
+        url: 'https://refreshpbma.com/semaglutide-tirzepatide-breaking-down-the-buzz-around-medical-weight-loss/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/05/IMG_5728.jpg',
+        title: 'Why Everyone\'s Talking About Sculptra',
+        url: 'https://refreshpbma.com/why-everyones-talking-about-sculptra/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/Microneedling-scaled-1-768x1024-1.jpg',
+        title: 'The Ultimate Guide to Microneedling with PRP',
+        url: 'https://refreshpbma.com/the-ultimate-guide-to-microneedling-with-prp/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/cosmetic-scene_67_pyoeaz-scaled-1.jpg',
+        title: 'Trap Tox Explained: What It Is and Why It\'s Trending',
+        url: 'https://refreshpbma.com/trap-tox-explained-what-it-is-and-why-its-trending/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/Microneedling-with-PRP-What-to-Expect-After-PRP-Therapy.jpg',
+        title: 'How Often Should You Get Microneedling with PRP Treatments?',
+        url: 'https://refreshpbma.com/how-often-should-you-get-microneedling-with-prp-treatments/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/Why-Choose-Hydrafacial-Treatment.webp',
+        title: 'Why Hydrafacial Is the Go-To Skincare Treatment for All Ages?',
+        url: 'https://refreshpbma.com/why-hydrafacial-is-the-go-to-skincare-treatment-for-all-ages/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/chemical-peels-for-hyperpigmentation-things-you-need-to-know.webp',
+        title: 'How Often Should You Get a Chemical Peel for Visible Results?',
+        url: 'https://refreshpbma.com/beyond-the-face-comprehensive-wellness-at-refreshpbma/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2025/06/botox-treatmnet-process-1024x682-1.webp',
+        title: 'Botox vs. Dysport vs. Xeomin: What\'s the Difference?',
+        url: 'https://refreshpbma.com/botox-vs-dysport-vs-xeomin-whats-the-difference/',
+      ),
+      BlogModel(
+        image: 'https://refreshpbma.com/wp-content/uploads/2024/11/Photofacial-4.webp',
+        title: 'How Photofacials Minimize Age Spots and Freckles?',
+        url: 'https://refreshpbma.com/how-photofacials-minimize-age-spots-and-freckles/',
       ),
     ];
 

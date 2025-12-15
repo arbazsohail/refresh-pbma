@@ -20,19 +20,80 @@ class PointsTiersController extends GetxController {
   final RxList<RewardTierModel> rewardTiers = <RewardTierModel>[].obs;
   final RxList<TierModel> tiers = <TierModel>[].obs;
   final RxInt currentIndex = 0.obs;
+  final RxDouble maxHeight = 300.0.obs;
+  final RxBool showAllTiers = false.obs;
+  final RxInt otherTiersIndex = 0.obs;
+  final RxDouble currentOtherTierHeight = 400.0.obs;
+  final List<double> otherTierHeights = [];
   late PageController pageController;
+  late PageController otherTiersPageController;
+
+  /// Get user's active tier
+  TierModel? get activeTier => tiers.firstWhereOrNull((t) => t.isActive);
+
+  /// Get other tiers (excluding active)
+  List<TierModel> get otherTiers => tiers.where((t) => !t.isActive).toList();
+
+  /// Toggle show all tiers
+  void toggleShowAllTiers() {
+    showAllTiers.value = !showAllTiers.value;
+    if (!showAllTiers.value) {
+      otherTiersIndex.value = 0;
+    }
+  }
+
+  /// Update other tiers index and height
+  void updateOtherTiersIndex(int index) {
+    otherTiersIndex.value = index;
+    if (otherTierHeights.isNotEmpty && index < otherTierHeights.length) {
+      currentOtherTierHeight.value = otherTierHeights[index];
+    }
+  }
+
+  /// Calculate height for a specific tier
+  double _calculateTierHeight(TierModel tier) {
+    // Base height: icon(55) + spacing(16) + title(26) + spacing(4) + points(20) + spacing(16) + padding(40) = ~177
+    // Each benefit: ~35 height (text + padding)
+    return 180 + (tier.benefits.length * 35);
+  }
+
+  /// Calculate heights for other tiers
+  void _calculateOtherTierHeights() {
+    otherTierHeights.clear();
+    for (var tier in otherTiers) {
+      otherTierHeights.add(_calculateTierHeight(tier));
+    }
+    if (otherTierHeights.isNotEmpty) {
+      currentOtherTierHeight.value = otherTierHeights[0];
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
     pageController = PageController(viewportFraction: 0.95, initialPage: 0);
+    otherTiersPageController = PageController(viewportFraction: 0.9, initialPage: 0);
     loadRewardTiers();
     loadTiers();
+    calculateMaxHeight();
+    _calculateOtherTierHeights();
+  }
+
+  void calculateMaxHeight() {
+    double maxBenefits = 0;
+    for (var tier in tiers) {
+      if (tier.benefits.length > maxBenefits) {
+        maxBenefits = tier.benefits.length.toDouble();
+      }
+    }
+    // Base height for card padding, icons, titles (approx 200) + height per benefit (approx 35)
+    maxHeight.value = 240 + (maxBenefits * 40);
   }
 
   @override
   void onClose() {
     pageController.dispose();
+    otherTiersPageController.dispose();
     super.onClose();
   }
 
@@ -42,132 +103,136 @@ class PointsTiersController extends GetxController {
 
   void loadTiers() {
     tiers.value = [
-      TierModel(
-        name: 'Elite',
-        pointsRange: '12,500 - 14,999 points',
-        isActive: true, // Currently active
-        benefits: [
-          '5% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
-          'First IV Therapy treatment 5% off',
-          '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
-          'All IV Therapy upgrades 10% off',
-          '5% off all skincare treatments',
-          'Two free skincare products up to \$150 total',
-          'Free small area later hair removal package (\$250 value) - 625 points',
-          'Free Hydrafacial (\$250 value) 4125 points',
-          'Free 1 area IV Therapy treatment (\$50 value) - 825 points',
-        ],
-      ),
-      TierModel(
-        name: 'Diamond',
-        pointsRange: '12,500 - 14,999 points',
-        benefits: [
-          '5% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
-          'First IV Therapy treatment 5% off',
-          '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
-          'All IV Therapy upgrades 10% off',
-          'Two free skincare products up to \$150 total',
-          '5% off all skincare treatments',
-          'Free small area later hair removal package of (\$250 value)',
-          'Free Hydrafacial (\$250 value) - 4125 points',
-          'Free 1 area IV Therapy treatment (\$50 value) - 825 points',
-        ],
-      ),
+      // Tiers in order: Refresh, Glow, Radiance, Luminary, Elite, Icon, Platinum, Diamond, Refresh X
       TierModel(
         name: 'Refresh',
-        pointsRange: '0 - 2,499 points',
+        pointsRange: '0–2,499 points',
         benefits: [
           'First skincare product 10% off',
-          'Free monthly modal skin fit & Flourish Membership',
+          'Free monthly trial of the Fill & Flourish Membership',
           'First IV Therapy treatment 5% off',
-        ],
-      ),
-      TierModel(
-        name: 'Radiance',
-        pointsRange: '5,000 - 9,999 points',
-        benefits: [
-          '10% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
-          'First IV Therapy treatment 5% off',
-          '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
-          'All IV Therapy upgrades 10% off',
-          'Two free skincare products up to \$150 total - 1500 points',
         ],
       ),
       TierModel(
         name: 'Glow',
-        pointsRange: '2,500 - 4,999 points',
+        pointsRange: '2,500–4,999 points',
         benefits: [
           'First skincare product 10% off',
-          'Free monthly modal skin fit & Flourish Membership',
+          'Free monthly trial of the Fill & Flourish Membership',
           'First IV Therapy treatment 5% off',
           '5% off any skincare product',
           '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value) - 250 points',
+          'Free goodie bag (\$100 value) - 250 points',
+        ],
+      ),
+      TierModel(
+        name: 'Radiance',
+        pointsRange: '5,000–9,999 points',
+        benefits: [
+          '5% off any skincare product',
+          'Free monthly trial of the Fill & Flourish Membership',
+          'First IV Therapy treatment 5% off',
+          '\$100 off your first Hydrafacial',
+          'Free goodie bag (\$100 value)',
+          'All IV Therapy upgrades 10% off',
+          'Two free skincare products up to \$150 total - 500 points',
         ],
       ),
       TierModel(
         name: 'Luminary',
-        pointsRange: '10,000 - 12,499 points',
+        pointsRange: '10,000–12,499 points',
         benefits: [
-          '10% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
+          '5% off any skincare product',
+          'Free monthly trial of the Fill & Flourish Membership',
           'First IV Therapy treatment 5% off',
           '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
+          'Free goodie bag (\$100 value)',
           'All IV Therapy upgrades 10% off',
           'Two free skincare products up to \$150 total',
           '5% off all skincare treatments',
-          'Free small area laser hair removal package of (\$250 value) - 1000 points',
+          'Free small-area laser hair removal package of 6 (\$199 value) - 1000 points',
+        ],
+      ),
+      TierModel(
+        name: 'Elite',
+        pointsRange: '12,500–14,999 points',
+        isActive: true, // Currently active
+        benefits: [
+          '5% off any skincare product',
+          'Free monthly trial of the Fill & Flourish Membership',
+          'First IV Therapy treatment 5% off',
+          '\$100 off your first Hydrafacial',
+          'Free goodie bag (\$100 value)',
+          'All IV Therapy upgrades 10% off',
+          'Two free skincare products up to \$150 total',
+          '5% off all skincare treatments',
+          'Free small-area laser hair removal package of 6 (\$199 value)',
+          'Free Hydrafacial (\$289 value) - 625 points',
+          'Free R.Power IV Therapy treatment (\$99 value) - 625 points',
         ],
       ),
       TierModel(
         name: 'Icon',
-        pointsRange: '15,000 - 19,999 points',
+        pointsRange: '15,000–19,999 points',
         benefits: [
           '5% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
+          'Free monthly trial of the Fill & Flourish Membership',
           'First IV Therapy treatment 5% off',
           '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
+          'Free goodie bag (\$100 value)',
           'All IV Therapy upgrades 10% off',
           'Two free skincare products up to \$150 total',
           '5% off all skincare treatments',
-          'Free small area laser hair removal package of (\$250 value)',
-          'Free Hydrafacial (\$250 value)',
-          'Free 1 area IV Therapy treatment (\$50 value)',
-          'Large area laser hair removal package of (\$500 value) - 1200 points',
+          'Free small-area laser hair removal package of 6 (\$199 value)',
+          'Free Hydrafacial (\$289 value)',
+          'Free R.Power IV Therapy treatment (\$99 value)',
+          'Large-area laser hair removal package of 6 (\$499 value) - 1500 points',
         ],
       ),
       TierModel(
         name: 'Platinum',
-        pointsRange: '20,000 - 24,999 points',
+        pointsRange: '20,000–24,999 points',
         benefits: [
           '5% off any skincare product',
-          'Free monthly modal skin fit & Flourish Membership',
+          'Free monthly trial of the Fill & Flourish Membership',
           'First IV Therapy treatment 5% off',
           '\$100 off your first Hydrafacial',
-          'Free goodie bag (\$150 value)',
+          'Free goodie bag (\$100 value)',
           'All IV Therapy upgrades 10% off',
           'Two free skincare products up to \$150 total',
           '5% off all skincare treatments',
-          'Free small area laser hair removal package of (\$250 value)',
-          'Free Hydrafacial (\$250 value)',
-          'Free 1 area IV Therapy treatment (\$50 value)',
-          'Large area laser hair removal package of (\$500 value)',
-          '3D Visia of Body, Abdomen, Mounjaro or Ozempic (\$150 value) - 2000 points',
+          'Free small-area laser hair removal package of 6 (\$199 value)',
+          'Free Hydrafacial (\$289 value)',
+          'Free R.Power IV Therapy treatment (\$99 value)',
+          'Large-area laser hair removal package of 6 (\$499 value)',
+          '50 units of Botox or equivalent neuromodulator (\$700 value) - 2000 points',
+        ],
+      ),
+      TierModel(
+        name: 'Diamond',
+        pointsRange: '25,000–39,999 points',
+        benefits: [
+          '5% off any skincare product',
+          'Free monthly trial of the Fill & Flourish Membership',
+          'First IV Therapy treatment 5% off',
+          '\$100 off your first Hydrafacial',
+          'Free goodie bag (\$100 value)',
+          'All IV Therapy upgrades 10% off',
+          'Two free skincare products up to \$150 total',
+          '5% off all skincare treatments',
+          'Free small-area laser hair removal package of 6 (\$199 value)',
+          'Free Hydrafacial (\$289 value)',
+          'Free R.Power IV Therapy treatment (\$99 value)',
+          'Large-area laser hair removal package of 6 (\$499 value)',
+          '50 units of Botox or equivalent neuromodulator (\$700 value)',
+          'One free syringe of dermal filler (\$799+ value) - 2500 points',
         ],
       ),
       TierModel(
         name: 'Refresh X',
-        pointsRange: '30,000+ points',
+        pointsRange: '39,999+ points',
         benefits: [
-          'Welcome to the inner circle. Your status is private and exclusive for you eyes only. Access may be revoked at any time if privileges are misused or shared. Your personal care coordinator will contact you within 24 hours upon successful induction of this tier.',
+          'Welcome to the inner circle. Your status is private and exclusive for your eyes only. Access may be revoked at any time if privileges are misused or shared. Your personal care coordinator will contact you within 24 hours upon successful induction of this tier.',
         ],
       ),
     ];

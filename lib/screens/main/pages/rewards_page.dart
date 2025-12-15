@@ -350,7 +350,7 @@ class RewardsPage extends GetView<RewardsController> {
                                       width: 52,
                                       height: 52,
                                       decoration: BoxDecoration(
-                                        color: AppColors.secondary,
+                                        color: AppColors.primary,
                                         shape: BoxShape.circle,
                                       ),
                                       child: Center(

@@ -12,7 +12,7 @@ class PaymentQuestionnaireScreen
 
   @override
   Widget build(BuildContext context) {
-    return AppConstants.lightSystemOverlay(
+    return AppConstants.darkSystemOverlay(
       child: Obx(
         () => Scaffold(
           backgroundColor: AppColors.white,
@@ -473,11 +473,12 @@ class PaymentQuestionnaireScreen
               () => SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: controller.isLoading.value
-                      ? null
-                      : (controller.canSubmit
-                          ? controller.submitQuestionnaire
-                          : null),
+                  onPressed:
+                      controller.isLoading.value
+                          ? null
+                          : (controller.canSubmit
+                              ? controller.submitQuestionnaire
+                              : null),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
@@ -489,25 +490,26 @@ class PaymentQuestionnaireScreen
                       alpha: 0.6,
                     ),
                   ),
-                  child: controller.isLoading.value
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
+                  child:
+                      controller.isLoading.value
+                          ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white,
+                              ),
+                            ),
+                          )
+                          : const Text(
+                            'Submit Application',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'DMSans',
                             ),
                           ),
-                        )
-                      : const Text(
-                          'Submit Application',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'DMSans',
-                          ),
-                        ),
                 ),
               ),
             ),

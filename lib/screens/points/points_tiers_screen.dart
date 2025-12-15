@@ -5,7 +5,22 @@ import '../../widgets/custom_app_bar.dart';
 import '../../controllers/points_tiers_controller.dart';
 
 class PointsTiersScreen extends GetView<PointsTiersController> {
-  const PointsTiersScreen({super.key});
+  PointsTiersScreen({super.key});
+
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _otherTiersKey = GlobalKey();
+
+  void _scrollToOtherTiers() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (_otherTiersKey.currentContext != null) {
+        Scrollable.ensureVisible(
+          _otherTiersKey.currentContext!,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,32 +33,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
         showSettings: true,
         onBackTap: () => Get.back(),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        height: Get.height * 0.05,
-        width: double.infinity,
-        child: Obx(() {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              controller.tiers.length,
-              (i) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                width: 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      controller.currentIndex.value == i
-                          ? AppColors.primary
-                          : AppColors.lightBorder,
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -208,54 +199,150 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
 
             const SizedBox(height: 20),
 
-            /// ---------------- YOUR TIERS ----------------
+            /// ---------------- YOUR TIER ----------------
             Obx(() {
               if (controller.tiers.isEmpty) return const SizedBox.shrink();
+              final activeTier = controller.activeTier;
+              if (activeTier == null) return const SizedBox.shrink();
 
-              final currentTier =
-                  controller.tiers[controller.currentIndex.value];
-
-              return currentTier.isActive
-                  ? const Padding(
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Your Tiers',
+                      'Your Tier',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: AppColors.blackText,
                       ),
                     ),
-                  )
-                  : const SizedBox.shrink();
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: _buildTierCard(activeTier),
+                  ),
+                ],
+              );
             }),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
 
-            /// ---------------- PAGE VIEW ----------------
+            /// ---------------- VIEW ALL / SHOW LESS BUTTON ----------------
             Obx(() {
-              if (controller.tiers.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
-              }
+              if (controller.tiers.isEmpty) return const SizedBox.shrink();
 
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      child: PageView.builder(
-                        controller: controller.pageController,
-                        itemCount: controller.tiers.length,
-                        onPageChanged: controller.updateIndex,
-                        itemBuilder: (context, index) {
-                          final tier = controller.tiers[index];
-                          return _buildTierCard(tier);
-                        },
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    controller.toggleShowAllTiers();
+                    if (controller.showAllTiers.value) {
+                      _scrollToOtherTiers();
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        controller.showAllTiers.value
+                            ? 'Show Less'
+                            : 'View All Tiers',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontFamily: 'DMSans',
+                        ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               );
             }),
+
+            const SizedBox(height: 16),
+
+            /// ---------------- OTHER TIERS (EXPANDABLE) ----------------
+            Obx(() {
+              if (!controller.showAllTiers.value ||
+                  controller.otherTiers.isEmpty) {
+                return const SizedBox.shrink();
+              }
+
+              return Column(
+                key: _otherTiersKey,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      'Other Tiers',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackText,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    height: controller.maxHeight.value,
+                    child: PageView.builder(
+                      controller: controller.otherTiersPageController,
+                      onPageChanged: controller.updateOtherTiersIndex,
+                      itemCount: controller.otherTiers.length,
+                      itemBuilder: (context, index) {
+                        final tier = controller.otherTiers[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            children: [
+                              _buildTierCard(tier),
+                              SizedBox(height: 20,),
+                              Obx(
+                                () => Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: List.generate(
+                                    controller.otherTiers.length,
+                                    (i) => Container(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 4,
+                                      ),
+                                      width: 8,
+                                      height: 8,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            controller.otherTiersIndex.value ==
+                                                    i
+                                                ? AppColors.primary
+                                                : AppColors.lightBorder,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Indicators
+                ],
+              );
+            }),
+
             SizedBox(height: 20),
           ],
         ),
@@ -272,7 +359,7 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
           margin: const EdgeInsets.symmetric(horizontal: 12),
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.cardcolor.withValues(alpha: 0.2),
+            color: Color(0xffF6F6F6),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: AppColors.cardcolor),
           ),

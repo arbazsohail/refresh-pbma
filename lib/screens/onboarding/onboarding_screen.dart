@@ -54,7 +54,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
               const Spacer(),
               // PageView with content
               SizedBox(
-                height: Get.height * 0.55,
+                height: Get.height * 0.60,
                 child: PageView.builder(
                   controller: controller.pageController,
                   onPageChanged: controller.onPageChanged,

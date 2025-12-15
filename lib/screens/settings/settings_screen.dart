@@ -182,7 +182,7 @@ class SettingsScreen extends GetView<SettingsController> {
                 Switch(
                   value: switchValue,
                   onChanged: onSwitchChanged,
-                  activeColor: AppColors.secondary,
+                  activeColor: AppColors.primary,
                   activeTrackColor: AppColors.secondary.withValues(alpha: 0.3),
                   inactiveThumbColor: const Color(0xFFBDBDBD),
                   inactiveTrackColor: const Color(0xFFE0E0E0),

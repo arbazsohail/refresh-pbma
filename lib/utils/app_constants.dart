@@ -52,6 +52,65 @@ class AppConstants {
   static const String welcomeBgPath = 'assets/images/welcomeBg.png';
   static const String goldenLogoPath = 'assets/icons/golden_logo_with_text.png';
 
+  /// Popular Services - Web-based images from refreshpbma.com
+  static const List<Map<String, String>> popularServices = [
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2024/11/Photofacial-4.webp',
+      'label': 'Smooth Fine Lines',
+      'url': 'https://refreshpbma.com/ipl-photofacials/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2024/12/filler-5-min.png',
+      'label': 'Restore Volume',
+      'url': 'https://refreshpbma.com/rha-fillers/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2024/08/Laser-Hair-Removal-Jupiter-FL-Laser-tech-performs-permanent-LHR.jpeg',
+      'label': 'Remove Unwanted Hair',
+      'url': 'https://refreshpbma.com/laser-hair-removal/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/refresh-Fade-Scars-rg1z3fhsf1rh4jsfnwfuk3khss5bm62lpbrpjv0oso.png',
+      'label': 'Remove Unwanted Tattoos',
+      'url': 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/lw-rg1z39ura1jr6w0mku0354zq8gx4bzg7ojuso791u0.webp',
+      'label': 'Lose Weight',
+      'url': 'https://refreshpbma.com/lose-weight/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/Tackle-Hormonal--rg1z3l4tk1z727k8qyvlz259d3diwcozq3omfisbrc.webp',
+      'label': 'Tackle PCOS',
+      'url': 'https://refreshpbma.com/pcos-support/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/Tackle-Hormonal--rg1z3l4tk1z727k8qyvlz259d3diwcozq3omfisbrc.webp',
+      'label': 'Tackle Hormones',
+      'url': 'https://refreshpbma.com/female-hormone-replacement-therapy/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2024/08/Emsella-for-urinary-incontinence.webp',
+      'label': 'Oxygen Therapy',
+      'url': 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2025/07/Screenshot_13.jpg',
+      'label': 'Nutrient Deficiency',
+      'url': 'https://refreshpbma.com/iv-therapy/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/refresh-Fade-Scars-rg1z3fhsf1rh4jsfnwfuk3khss5bm62lpbrpjv0oso.png',
+      'label': 'Ablative Resurfacing',
+      'url': 'https://refreshpbma.com/deka-co₂-fully-ablative-laser/'
+    },
+    {
+      'image': 'https://refreshpbma.com/wp-content/uploads/2024/07/Why-Should-I-Avoid-The-Sun-After-A-Facelift-Photo-scaled-1.jpg',
+      'label': 'Plastic Surgery',
+      'url': 'https://refreshpbma.com/plastic-surgery/'
+    },
+  ];
+
   /// System UI Overlay Styles (Annotated Regions)
 
   /// Dark System Overlay - For Main App Screens
