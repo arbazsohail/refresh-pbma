@@ -228,7 +228,6 @@ class PaymentQuestionnaireController extends GetxController {
   void submitQuestionnaire() {
     isLoading.value = true;
 
-    // TODO: Implement API call to submit questionnaire
     Future.delayed(const Duration(seconds: 2), () {
       isLoading.value = false;
 

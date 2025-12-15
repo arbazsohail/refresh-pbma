@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/contact_us_success_dialog.dart';
-import '../routes/app_routes.dart';
 
 class ContactUsController extends GetxController {
   // Form key

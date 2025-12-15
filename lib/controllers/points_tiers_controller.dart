@@ -25,7 +25,7 @@ class PointsTiersController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    pageController = PageController(viewportFraction: 0.9, initialPage: 0);
+    pageController = PageController(viewportFraction: 0.95, initialPage: 0);
     loadRewardTiers();
     loadTiers();
   }

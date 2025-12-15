@@ -18,10 +18,17 @@ class HomePageController extends GetxController {
   void loadData() {
     // Popular Services
     popularServices.value = [
-      {'image': 'assets/images/join1.png', 'label': 'Smooth fine lines'},
-      {'image': 'assets/images/join2.png', 'label': 'Restore Volume'},
-      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Hair'},
-      {'image': 'assets/images/join4.png', 'label': 'Lose Weight'},
+       {'image': 'assets/images/join1.png', 'label': 'Smooth fine lines', 'url' : 'https://refreshpbma.com/ipl-photofacials/'},
+      {'image': 'assets/images/join2.png', 'label': 'Restore Volume', 'url' : 'https://refreshpbma.com/rha-fillers/'},
+      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Hair', 'url' : 'https://refreshpbma.com/laser-hair-removal/'},
+      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Tattoos', 'url' : 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'},
+      {'image': 'assets/images/join4.png', 'label': 'Lose Weight', 'url' : 'https://refreshpbma.com/lose-weight/'},
+      {'image': 'assets/images/join4.png', 'label': 'Tackle PCOS', 'url' : 'https://refreshpbma.com/pcos-support/'},
+      {'image': 'assets/images/join4.png', 'label': 'Tackle Hormones', 'url' : 'https://refreshpbma.com/female-hormone-replacement-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Oxygen Therapy', 'url' : 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Nutrient Deficiency', 'url' : 'https://refreshpbma.com/iv-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Ablative Resurfacing', 'url' : 'https://refreshpbma.com/deka-co₂-fully-ablative-laser/'},
+      {'image': 'assets/images/join4.png', 'label': 'Plastic Surgery', 'url' : 'https://refreshpbma.com/plastic-surgery/'},
     ];
 
     // Blogs
@@ -83,7 +90,6 @@ class HomePageController extends GetxController {
   }
 
   void bookNow() {
-    // TODO: Implement booking logic
     Get.snackbar(
       'Book Now',
       'Booking feature coming soon!',
@@ -96,10 +102,8 @@ class HomePageController extends GetxController {
   }
 
   void callUs() {
-    // TODO: Implement call logic
   }
 
   void emailSupport() {
-    // TODO: Implement email logic
   }
 }

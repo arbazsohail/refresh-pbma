@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:refresh_pbma/controllers/home_page_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/app_colors.dart';
 import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/auto_scroll_banner.dart';
@@ -10,6 +11,20 @@ import '../../../widgets/action_card.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({super.key});
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      // Error handling agar URL open na ho
+      Get.snackbar(
+        'Error',
+        'Could not open the link',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +74,12 @@ class HomePage extends GetView<HomePageController> {
                                   ? 16
                                   : 20,
                         ),
-                        child: ServiceCard(
-                          image: service['image']!,
-                          label: service['label']!,
+                        child: GestureDetector(
+                           onTap: () => _launchURL(service['url']!),
+                          child: ServiceCard(
+                            image: service['image']!,
+                            label: service['label']!,
+                          ),
                         ),
                       );
                     }).toList(),

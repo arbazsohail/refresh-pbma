@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -15,16 +14,42 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
       appBar: CustomAppBar(
         title: 'Points Tiers',
         showBackButton: true,
-        showNotification: false,
-        showSettings: false,
+        showNotification: true,
+        showSettings: true,
         onBackTap: () => Get.back(),
+      ),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        height: Get.height * 0.05,
+        width: double.infinity,
+        child: Obx(() {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              controller.tiers.length,
+              (i) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color:
+                      controller.currentIndex.value == i
+                          ? AppColors.primary
+                          : AppColors.lightBorder,
+                ),
+              ),
+            ),
+          );
+        }),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            // Top Member Card
+
+            /// ---------------- TOP CARD ----------------
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
@@ -38,16 +63,12 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                   borderRadius: BorderRadius.circular(16),
                   child: Stack(
                     children: [
-                      // Background Pattern
                       Positioned.fill(
-                        child: SvgPicture.asset(
-                          'assets/icons/points_ties_bg.svg',
-                          fit: BoxFit.cover,
-                          placeholderBuilder:
-                              (context) => Container(color: AppColors.primary),
-                        ),
+                        right: 0,
+                        left: 100,
+                        child: Image.asset('assets/images/7 1.png'),
                       ),
-                      // Content
+
                       Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
@@ -57,30 +78,28 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                               'Joined\n08/24',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'DMSans',
                                 height: 1.4,
                               ),
                             ),
-                            const Spacer(),
+                            const SizedBox(height: 8),
                             const Text(
                               'Elite',
                               style: TextStyle(
-                                color: Color(
-                                  0xFFFF9900,
-                                ), // Orange/Gold color from screenshot
+                                color: Color(0xFFFFAC33),
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'DMSans',
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            Spacer(),
                             const Text(
                               'Member Number\n5154223',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'DMSans',
                                 height: 1.4,
@@ -93,14 +112,11 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                       Positioned(
                         top: 24,
                         right: 24,
-                        child: SvgPicture.asset(
-                          'assets/icons/new_point_tiers.svg',
-                          width: 48,
-                          height: 48,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcIn,
-                          ),
+                        child: Image.asset(
+                          'assets/images/cardlogo.png',
+                          width: 59,
+                          height: 78,
+                          color: AppColors.white,
                         ),
                       ),
                     ],
@@ -109,9 +125,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
-            // Progress Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -123,8 +138,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                         'Elite',
                         style: TextStyle(
                           color: AppColors.blackText,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                           fontFamily: 'DMSans',
                         ),
                       ),
@@ -132,7 +147,7 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                         'Diamond',
                         style: TextStyle(
                           color: AppColors.textHint,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'DMSans',
                         ),
@@ -144,7 +159,7 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                   Stack(
                     children: [
                       Container(
-                        height: 6,
+                        height: 8,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColors.lightBorder,
@@ -152,7 +167,7 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                         ),
                       ),
                       Container(
-                        height: 6,
+                        height: 8,
                         width:
                             MediaQuery.of(context).size.width *
                             0.4, // Mock 40% progress
@@ -163,25 +178,25 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 7),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
                       Text(
                         '773 Tiers Credits',
                         style: TextStyle(
-                          color: AppColors.textHint,
+                          color: Color(0xff888F9A),
                           fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'DMSans',
                         ),
                       ),
                       Text(
                         '2,499',
                         style: TextStyle(
-                          color: AppColors.textHint,
+                          color: Color(0xff888F9A),
                           fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'DMSans',
                         ),
                       ),
@@ -191,177 +206,164 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Your Tiers',
-                style: TextStyle(
-                  color: AppColors.blackText,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'DMSans',
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
+            /// ---------------- YOUR TIERS ----------------
+            Obx(() {
+              if (controller.tiers.isEmpty) return const SizedBox.shrink();
 
-            // PageView of Tiers
+              final currentTier =
+                  controller.tiers[controller.currentIndex.value];
+
+              return currentTier.isActive
+                  ? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      'Your Tiers',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blackText,
+                      ),
+                    ),
+                  )
+                  : const SizedBox.shrink();
+            }),
+
+            const SizedBox(height: 10),
+
+            /// ---------------- PAGE VIEW ----------------
             Obx(() {
               if (controller.tiers.isEmpty) {
                 return const Center(child: CircularProgressIndicator());
               }
-              return SizedBox(
-                height: 550, // Fixed height for carousel
-                child: PageView.builder(
-                  controller: controller.pageController,
-                  itemCount: controller.tiers.length,
-                  onPageChanged: controller.updateIndex,
-                  itemBuilder: (context, index) {
-                    final tier = controller.tiers[index];
-                    return _buildTierCard(tier);
-                  },
+
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      child: PageView.builder(
+                        controller: controller.pageController,
+                        itemCount: controller.tiers.length,
+                        onPageChanged: controller.updateIndex,
+                        itemBuilder: (context, index) {
+                          final tier = controller.tiers[index];
+                          return _buildTierCard(tier);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               );
             }),
-            const SizedBox(height: 20),
-            // Page Indicator
-            Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  controller.tiers.length,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          controller.currentIndex.value == index
-                              ? AppColors.primary
-                              : AppColors.lightBorder,
-                    ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// ---------------- TIER CARD ----------------
+  Widget _buildTierCard(TierModel tier) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: AppColors.cardcolor.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.cardcolor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /// ICON
+              Container(
+                width: 55,
+                height: 55,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/cardlogo.png',
+                    width: 35,
+                    height: 35,
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
-        ), // Column
-      ), // SingleChildScrollView
-    ); // Scaffold
-  }
 
-  Widget _buildTierCard(TierModel tier) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      padding: const EdgeInsets.all(24.0),
-      decoration: BoxDecoration(
-        color: Colors.white, // Always white
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.lightBorder),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Icon
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(
-              child: SvgPicture.asset(
-                'assets/icons/new_point_tiers.svg',
-                width: 24,
-                height: 24,
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
+              const SizedBox(height: 16),
+
+              /// TITLE
+              Text(
+                tier.name,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.blackText,
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 16),
 
-          // Tier Name
-          Text(
-            tier.name,
-            style: const TextStyle(
-              color: AppColors.blackText,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'DMSans',
-            ),
-          ),
-          const SizedBox(height: 4),
+              const SizedBox(height: 4),
 
-          // Points Range
-          Text(
-            tier.pointsRange,
-            style: const TextStyle(
-              color: AppColors.textHint,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'DMSans',
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // Benefits List
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:
-                    tier.benefits.map((benefit) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(top: 6),
-                              child: Icon(
-                                Icons.circle,
-                                size: 4,
-                                color: AppColors.blackText,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                benefit,
-                                style: const TextStyle(
-                                  color: AppColors.blackText,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'DMSans',
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }).toList(),
+              /// POINTS
+              Text(
+                tier.pointsRange,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.cardsecondarycolor,
+                ),
               ),
-            ),
+
+              const SizedBox(height: 16),
+
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: tier.benefits.length,
+                itemBuilder: (context, i) {
+                  var benefit = tier.benefits[i];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 6),
+                          child: Icon(
+                            Icons.circle,
+                            size: 3,
+                            color: AppColors.blackText,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            benefit,
+                            style: const TextStyle(
+                              color: AppColors.cardtextcolor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'DMSans',
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

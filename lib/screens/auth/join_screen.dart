@@ -4,19 +4,41 @@ import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/service_card.dart';
 import '../../widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/auto_scroll_banner.dart';
 import '../../routes/app_routes.dart';
 
 class JoinScreen extends StatelessWidget {
   const JoinScreen({super.key});
 
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      // Error handling agar URL open na ho
+      Get.snackbar(
+        'Error',
+        'Could not open the link',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final services = [
-      {'image': 'assets/images/join1.png', 'label': 'Smooth fine lines'},
-      {'image': 'assets/images/join2.png', 'label': 'Restore Volume'},
-      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Hair'},
-      {'image': 'assets/images/join4.png', 'label': 'Lose Weight'},
+      {'image': 'assets/images/join1.png', 'label': 'Smooth fine lines', 'url' : 'https://refreshpbma.com/ipl-photofacials/'},
+      {'image': 'assets/images/join2.png', 'label': 'Restore Volume', 'url' : 'https://refreshpbma.com/rha-fillers/'},
+      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Hair', 'url' : 'https://refreshpbma.com/laser-hair-removal/'},
+      {'image': 'assets/images/join3.png', 'label': 'Remove Unwanted Tattoos', 'url' : 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'},
+      {'image': 'assets/images/join4.png', 'label': 'Lose Weight', 'url' : 'https://refreshpbma.com/lose-weight/'},
+      {'image': 'assets/images/join4.png', 'label': 'Tackle PCOS', 'url' : 'https://refreshpbma.com/pcos-support/'},
+      {'image': 'assets/images/join4.png', 'label': 'Tackle Hormones', 'url' : 'https://refreshpbma.com/female-hormone-replacement-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Oxygen Therapy', 'url' : 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Nutrient Deficiency', 'url' : 'https://refreshpbma.com/iv-therapy/'},
+      {'image': 'assets/images/join4.png', 'label': 'Ablative Resurfacing', 'url' : 'https://refreshpbma.com/deka-co₂-fully-ablative-laser/'},
+      {'image': 'assets/images/join4.png', 'label': 'Plastic Surgery', 'url' : 'https://refreshpbma.com/plastic-surgery/'},
     ];
 
     return AppConstants.lightSystemOverlay(
@@ -85,9 +107,12 @@ class JoinScreen extends StatelessWidget {
                         padding: EdgeInsets.only(
                           right: index < services.length - 1 ? 16 : 0,
                         ),
-                        child: ServiceCard(
-                          image: service['image']!,
-                          label: service['label']!,
+                        child: GestureDetector(
+                          onTap: () => _launchURL(service['url']!),
+                          child: ServiceCard(
+                            image: service['image']!,
+                            label: service['label']!,
+                          ),
                         ),
                       );
                     }).toList(),

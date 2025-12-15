@@ -248,3 +248,6 @@ screenshots/
 
 # Documentation
 docs/generated/
+
+# FVM Version Cache
+.fvm/

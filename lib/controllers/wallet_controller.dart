@@ -73,7 +73,6 @@ class WalletController extends GetxController {
   }
 
   Future<void> onLoading() async {
-    // TODO: Implement pagination if needed
     refreshController.loadComplete();
   }
 

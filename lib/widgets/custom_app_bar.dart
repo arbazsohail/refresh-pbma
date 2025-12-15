@@ -55,7 +55,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           title!,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'DMSans',
                           ),
@@ -100,17 +100,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                         child: Container(
                                           width: 40,
                                           height: 40,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white.withValues(
-                                              alpha: 0.2,
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
+                                          // decoration: BoxDecoration(
+                                          //   color: Colors.white.withValues(
+                                          //     alpha: 0.2,
+                                          //   ),
+                                          //   shape: BoxShape.circle,
+                                          // ),
                                           child: Center(
                                             child: SvgPicture.asset(
                                               'assets/icons/notification.svg',
-                                              width: 20,
-                                              height: 20,
+                                              width: 25,
+                                              height: 25,
                                               colorFilter:
                                                   const ColorFilter.mode(
                                                     Colors.white,
@@ -130,17 +130,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                         child: Container(
                                           width: 40,
                                           height: 40,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white.withValues(
-                                              alpha: 0.2,
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
+                                          // decoration: BoxDecoration(
+                                          //   color: Colors.white.withValues(
+                                          //     alpha: 0.2,
+                                          //   ),
+                                          //   shape: BoxShape.circle,
+                                          // ),
                                           child: Center(
                                             child: SvgPicture.asset(
                                               'assets/icons/settings.svg',
-                                              width: 20,
-                                              height: 20,
+                                              width: 25,
+                                              height: 25,
                                               colorFilter:
                                                   const ColorFilter.mode(
                                                     Colors.white,

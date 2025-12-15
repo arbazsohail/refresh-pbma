@@ -49,7 +49,7 @@ class AppColors {
   static const Color ongoing = Color(0xFF42A5F5);
   static const Color rejected = Color(0xFFE57373);
 
-  // Priority Colors
+  // Priority ColorsFf6
   static const Color highPriority = Color(0xFFE57373);
   static const Color mediumPriority = Color(0xFFFFA726);
   static const Color lowPriority = Color(0xFF81C784);
@@ -60,6 +60,12 @@ class AppColors {
   static const Color lightBorder = Color(0xFFEDF1F3);
   static const Color borderColor = Color(0xFFB9B9B9);
   static const Color borderGrey = Color(0xFFE0E2E5);
+
+  // Card Colors
+  static const Color cardcolor = Color(0xFFF6F6F6);
+  static const Color cardtextcolor = Color(0xFF141413);
+   static const Color cardsecondarycolor = Color(0xFF667078);
+  
 
   // Gradients
   static const LinearGradient primaryGradient = LinearGradient(
