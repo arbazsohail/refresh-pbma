@@ -32,4 +32,5 @@ class AppRoutes {
   static const String privacyPolicy = '/privacy-policy';
   static const String paymentApplication = '/payment-application';
   static const String paymentQuestionnaire = '/payment-questionnaire';
+  static const String rewardsTerms = '/rewards-terms';
 }

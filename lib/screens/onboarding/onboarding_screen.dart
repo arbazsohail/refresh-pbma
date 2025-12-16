@@ -22,7 +22,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child:
-                        controller.currentPage.value < 2
+                        controller.currentPage.value < 4
                             ? SizedBox(
                               height: 40,
                               child: TextButton(
@@ -51,10 +51,9 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 ),
               ),
 
-              const Spacer(),
               // PageView with content
               SizedBox(
-                height: Get.height * 0.60,
+                height: Get.height * 0.70,
                 child: PageView.builder(
                   controller: controller.pageController,
                   onPageChanged: controller.onPageChanged,

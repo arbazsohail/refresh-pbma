@@ -9,7 +9,7 @@ class OnboardingController extends GetxController {
 
   final List<OnboardingData> onboardingPages = [
     OnboardingData(
-      image: 'assets/images/onboarding1.png',
+      image: 'assets/images/onboarding1_new.jpg',
       title: 'Earn Rewards For Referring',
       description:
           'Invite your friends, clients, or network \n and get rewarded for every \n successful referral.',
@@ -17,14 +17,25 @@ class OnboardingController extends GetxController {
     OnboardingData(
       image: 'assets/images/onboarding2.jpg',
       title: 'Track Referrals Easily',
-      description:
-          'See when your friends book and\n complete appointments.',
+      description: 'See when your friends book and\n complete appointments.',
     ),
     OnboardingData(
-      image: 'assets/images/onboarding3.jpg',
+      image: 'assets/images/onboarding3_new.jpg',
       title: 'Redeem Points For Perks',
       description:
           'Use your points towards treatments and earn exclusive gifts!',
+    ),
+    OnboardingData(
+      image: 'assets/images/onboarding4.jpg',
+      title: 'Everything In One Place',
+      description:
+          'Apply for payment plans, book appointments, explore services, and manage your Refresh experience all from one simple app.',
+    ),
+    OnboardingData(
+      image: 'assets/images/onboarding5.jpg',
+      title: 'Refresh Wellness Programs',
+      description:
+          'Discover our personalized wellness programs designed to support your health, longevity, and confidence, with streamlined medication management and easy reordering built in for your convenience.',
     ),
   ];
 

@@ -37,38 +37,44 @@ class ServiceCard extends StatelessWidget {
               Expanded(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: image.startsWith('http')
-                      ? Image.network(
-                          image,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              color: const Color(0xFFF6F6F6),
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.primary,
-                                  strokeWidth: 2,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: image.startsWith('http')
+                        ? Image.network(
+                            image,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                color: const Color(0xFFF6F6F6),
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.primary,
+                                    strokeWidth: 2,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: const Color(0xFFF6F6F6),
-                              child: const Icon(
-                                Icons.image,
-                                color: Color(0xFF888F9A),
-                              ),
-                            );
-                          },
-                        )
-                      : Image.asset(
-                          image,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: const Color(0xFFF6F6F6),
+                                child: const Icon(
+                                  Icons.image,
+                                  color: Color(0xFF888F9A),
+                                ),
+                              );
+                            },
+                          )
+                        : Image.asset(
+                            image,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
               ),
 

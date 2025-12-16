@@ -20,7 +20,7 @@ class PaymentQuestionnaireScreen
             title:
                 controller.showConsentScreen.value
                     ? 'Payment Terms Application'
-                    : 'Questionnaire ${controller.currentQuestionIndex.value + 1}',
+                    : 'Question ${controller.currentQuestionIndex.value + 1}',
             showBackButton: true,
 
             onBackTap: () {

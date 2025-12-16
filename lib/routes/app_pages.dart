@@ -25,6 +25,7 @@ import '../screens/legal/terms_and_conditions_screen.dart';
 import '../screens/legal/privacy_policy_screen.dart';
 import '../screens/payment/payment_application_screen.dart';
 import '../screens/payment/payment_questionnaire_screen.dart';
+import '../screens/points/rewards_terms_screen.dart';
 import '../controllers/onboarding_controller.dart';
 import '../controllers/login_controller.dart';
 import '../controllers/signup_controller.dart';
@@ -300,6 +301,13 @@ class AppPages {
       binding: BindingsBuilder(() {
         Get.lazyPut<PaymentQuestionnaireController>(() => PaymentQuestionnaireController());
       }),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+
+    GetPage(
+      name: AppRoutes.rewardsTerms,
+      page: () => const RewardsTermsScreen(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
     ),

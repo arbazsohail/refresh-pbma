@@ -133,62 +133,62 @@ class WalletPage extends GetView<WalletController> {
                         ),
                         const SizedBox(height: 24),
                         // Scan Card
-                        GestureDetector(
-                          onTap: controller.openScanner,
-                          child: Card(
-                            elevation: 0.1,
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    'Scan & Earn 10 Points Each\n Time You Visit!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFF141413),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'DMSans',
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  // Scan Icon
-                                  Container(
-                                    width: 52,
-                                    height: 52,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primary,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        'assets/icons/scan.svg',
-                                        width: 32,
-                                        height: 32,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  const Text(
-                                    'Tap to Scan',
-                                    style: TextStyle(
-                                      color: AppColors.greyText,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'DMSans',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 24),
+                        // GestureDetector(
+                        //   onTap: controller.openScanner,
+                        //   child: Card(
+                        //     elevation: 0.1,
+                        //     child: Container(
+                        //       width: double.infinity,
+                        //       padding: const EdgeInsets.all(20),
+                        //       decoration: BoxDecoration(
+                        //         color: Colors.white,
+                        //         borderRadius: BorderRadius.circular(12),
+                        //       ),
+                        //       child: Column(
+                        //         children: [
+                        //           const Text(
+                        //             'Scan & Earn 10 Points Each\n Time You Visit!',
+                        //             textAlign: TextAlign.center,
+                        //             style: TextStyle(
+                        //               color: Color(0xFF141413),
+                        //               fontSize: 14,
+                        //               fontWeight: FontWeight.w600,
+                        //               fontFamily: 'DMSans',
+                        //             ),
+                        //           ),
+                        //           const SizedBox(height: 16),
+                        //           // Scan Icon
+                        //           Container(
+                        //             width: 52,
+                        //             height: 52,
+                        //             decoration: BoxDecoration(
+                        //               color: AppColors.primary,
+                        //               shape: BoxShape.circle,
+                        //             ),
+                        //             child: Center(
+                        //               child: SvgPicture.asset(
+                        //                 'assets/icons/scan.svg',
+                        //                 width: 32,
+                        //                 height: 32,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           const SizedBox(height: 12),
+                        //           const Text(
+                        //             'Tap to Scan',
+                        //             style: TextStyle(
+                        //               color: AppColors.greyText,
+                        //               fontSize: 14,
+                        //               fontWeight: FontWeight.w600,
+                        //               fontFamily: 'DMSans',
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 24),
                         // Points History Header
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -52,60 +52,60 @@ class AppConstants {
   static const String welcomeBgPath = 'assets/images/welcomeBg.png';
   static const String goldenLogoPath = 'assets/icons/golden_logo_with_text.png';
 
-  /// Popular Services - Web-based images from refreshpbma.com
+  /// Popular Services - Local images from assets/images/services/
   static const List<Map<String, String>> popularServices = [
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2024/11/Photofacial-4.webp',
+      'image': 'assets/images/services/smooth_fine_lines.jpg',
       'label': 'Smooth Fine Lines',
-      'url': 'https://refreshpbma.com/ipl-photofacials/'
+      'url': 'https://refreshpbma.com/botox/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2024/12/filler-5-min.png',
+      'image': 'assets/images/services/restore_volume.jpg',
       'label': 'Restore Volume',
       'url': 'https://refreshpbma.com/rha-fillers/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2024/08/Laser-Hair-Removal-Jupiter-FL-Laser-tech-performs-permanent-LHR.jpeg',
+      'image': 'assets/images/services/remove_unwanted_hair.jpg',
       'label': 'Remove Unwanted Hair',
       'url': 'https://refreshpbma.com/laser-hair-removal/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/refresh-Fade-Scars-rg1z3fhsf1rh4jsfnwfuk3khss5bm62lpbrpjv0oso.png',
+      'image': 'assets/images/services/tattoo_regret.webp',
       'label': 'Remove Unwanted Tattoos',
       'url': 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/lw-rg1z39ura1jr6w0mku0354zq8gx4bzg7ojuso791u0.webp',
+      'image': 'assets/images/services/lose_weight.jpg',
       'label': 'Lose Weight',
       'url': 'https://refreshpbma.com/lose-weight/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/Tackle-Hormonal--rg1z3l4tk1z727k8qyvlz259d3diwcozq3omfisbrc.webp',
+      'image': 'assets/images/services/tackle_PCOS.JPG',
       'label': 'Tackle PCOS',
       'url': 'https://refreshpbma.com/pcos-support/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/Tackle-Hormonal--rg1z3l4tk1z727k8qyvlz259d3diwcozq3omfisbrc.webp',
+      'image': 'assets/images/services/tackle_hormones.png',
       'label': 'Tackle Hormones',
       'url': 'https://refreshpbma.com/female-hormone-replacement-therapy/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2024/08/Emsella-for-urinary-incontinence.webp',
+      'image': 'assets/images/services/oxygen_therapy.jpg',
       'label': 'Oxygen Therapy',
       'url': 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2025/07/Screenshot_13.jpg',
+      'image': 'assets/images/services/nutrient_deficiency.JPG',
       'label': 'Nutrient Deficiency',
       'url': 'https://refreshpbma.com/iv-therapy/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/elementor/thumbs/refresh-Fade-Scars-rg1z3fhsf1rh4jsfnwfuk3khss5bm62lpbrpjv0oso.png',
+      'image': 'assets/images/services/ablative_resurfacing.JPG',
       'label': 'Ablative Resurfacing',
       'url': 'https://refreshpbma.com/deka-co₂-fully-ablative-laser/'
     },
     {
-      'image': 'https://refreshpbma.com/wp-content/uploads/2024/07/Why-Should-I-Avoid-The-Sun-After-A-Facelift-Photo-scaled-1.jpg',
+      'image': 'assets/images/services/plastic_surgery.JPEG',
       'label': 'Plastic Surgery',
       'url': 'https://refreshpbma.com/plastic-surgery/'
     },

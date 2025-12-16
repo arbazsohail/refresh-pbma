@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -103,8 +104,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                       Positioned(
                         top: 24,
                         right: 24,
-                        child: Image.asset(
-                          'assets/images/cardlogo.png',
+                        child: SvgPicture.asset(
+                          'assets/icons/RLOGO.svg',
                           width: 59,
                           height: 78,
                           color: AppColors.white,
@@ -270,6 +271,27 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
 
             const SizedBox(height: 16),
 
+            // Rewards Tier Terms of Use
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GestureDetector(
+                onTap: () => Get.toNamed('/rewards-terms'),
+                child: const Center(
+                  child: Text(
+                    'Rewards Tier Terms of Use',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.secondary,
+                      fontFamily: 'DMSans',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
             /// ---------------- OTHER TIERS (EXPANDABLE) ----------------
             Obx(() {
               if (!controller.showAllTiers.value ||
@@ -306,7 +328,7 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                           child: Column(
                             children: [
                               _buildTierCard(tier),
-                              SizedBox(height: 20,),
+                              SizedBox(height: 20),
                               Obx(
                                 () => Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -376,8 +398,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/cardlogo.png',
+                  child: SvgPicture.asset(
+                    'assets/icons/RLOGO.svg',
                     width: 35,
                     height: 35,
                   ),
