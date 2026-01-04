@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
 import 'services/storage_service.dart';
 import 'services/api_service.dart';
+import 'services/auth_service.dart';
+import 'services/firebase_service.dart';
+import 'services/google_auth_service.dart';
 import 'utils/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Initialize Services
   await initServices();
@@ -22,6 +32,15 @@ Future<void> initServices() async {
 
   // Initialize API Service
   Get.put(ApiService());
+
+  // Initialize Auth Service
+  Get.put(AuthService());
+
+  // Initialize Firebase Service (FCM)
+  Get.put(FirebaseService());
+
+  // Initialize Google Auth Service
+  Get.put(GoogleAuthService());
 }
 
 class MyApp extends StatelessWidget {

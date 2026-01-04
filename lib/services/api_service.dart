@@ -22,6 +22,7 @@ class ApiService extends GetxService {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'token': ApiConstants.apiToken, // API token for all requests
         },
       ),
     );
@@ -30,11 +31,15 @@ class ApiService extends GetxService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // Add auth token to headers
-          final token = await _storageService.getToken();
-          if (token != null) {
-            options.headers['Authorization'] = 'Bearer $token';
+          // Ensure API token is always present in all requests
+          options.headers['token'] = ApiConstants.apiToken;
+
+          // Add user auth token to headers if available (for authenticated endpoints)
+          final userToken = await _storageService.getToken();
+          if (userToken != null) {
+            options.headers['Authorization'] = 'Bearer $userToken';
           }
+
           return handler.next(options);
         },
         onResponse: (response, handler) {
@@ -43,7 +48,9 @@ class ApiService extends GetxService {
         onError: (DioException error, handler) async {
           // Handle 401 Unauthorized
           if (error.response?.statusCode == 401) {
-            await _storageService.clearToken();
+            // Clear session data (keep app settings like FCM token, onboarding)
+            await _storageService.clearSession();
+            print('🔒 Session expired - user logged out');
             // Navigate to login
             Get.offAllNamed('/login');
           }
@@ -105,6 +112,24 @@ class ApiService extends GetxService {
     }
   }
 
+  // PATCH Request
+  Future<Response> patch(
+    String endpoint, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      final response = await _dio.patch(
+        endpoint,
+        data: data,
+        queryParameters: queryParameters,
+      );
+      return response;
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
   // DELETE Request
   Future<Response> delete(
     String endpoint, {
@@ -154,13 +179,22 @@ class ApiService extends GetxService {
         error.type == DioExceptionType.receiveTimeout) {
       errorMessage = 'Connection timeout. Please try again.';
     } else if (error.type == DioExceptionType.badResponse) {
-      errorMessage = error.response?.data['message'] ?? 'Server error occurred';
+      // API returns errors in format: { "code": 400, "message": "Error message", "data": {} }
+      final data = error.response?.data;
+      if (data is Map && data['message'] != null) {
+        errorMessage = data['message'];
+      } else {
+        errorMessage = 'Server error occurred (${error.response?.statusCode})';
+      }
     } else if (error.type == DioExceptionType.cancel) {
       errorMessage = 'Request cancelled';
+    } else if (error.type == DioExceptionType.connectionError) {
+      errorMessage = 'Network error. Please check your internet connection.';
     } else {
-      errorMessage = 'Network error. Please check your connection.';
+      errorMessage = 'An unexpected error occurred. Please try again.';
     }
 
+    print('🔥 API Error: $errorMessage');
     return errorMessage;
   }
 }

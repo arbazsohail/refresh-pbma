@@ -13,10 +13,10 @@ class FAQModel {
 
   factory FAQModel.fromJson(Map<String, dynamic> json) {
     return FAQModel(
-      id: json['id'] ?? '',
-      question: json['question'] ?? '',
-      answer: json['answer'] ?? '',
-      isExpanded: json['isExpanded'] ?? false,
+      id: json['id']?.toString() ?? '',
+      question: json['title'] ?? json['question'] ?? '',
+      answer: json['content'] ?? json['answer'] ?? '',
+      isExpanded: false,
     );
   }
 

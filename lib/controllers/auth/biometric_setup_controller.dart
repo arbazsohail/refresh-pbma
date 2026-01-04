@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
-import '../services/storage_service.dart';
-import '../widgets/custom_snackbar.dart';
+import '../../services/storage_service.dart';
+import '../../widgets/custom_snackbar.dart';
 
 class BiometricSetupController extends GetxController {
   final LocalAuthentication auth = LocalAuthentication();
