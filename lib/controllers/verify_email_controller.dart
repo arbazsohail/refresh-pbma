@@ -1,12 +1,7 @@
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import '../../services/auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
+import '../routes/app_routes.dart';
 
 class VerifyEmailController extends GetxController {
-  // Services
-  final AuthService _authService = Get.find<AuthService>();
-
   final RxString email = ''.obs;
   final RxString phoneNumber = ''.obs;
   final RxString selectedMethod = 'email'.obs; // 'email' or 'phone'
@@ -63,24 +58,7 @@ class VerifyEmailController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Send OTP based on selected method
-      if (selectedMethod.value == 'email') {
-        // Send OTP to email
-        final response = await _authService.sendOtpEmail(email: email.value);
-
-        CustomSnackbar.success(
-          title: 'Success',
-          message: response['message'] ?? 'OTP sent to your email',
-        );
-      } else {
-        // TODO: Send OTP to phone when endpoint is available
-        CustomSnackbar.warning(
-          title: 'Coming Soon',
-          message: 'Phone OTP is not yet implemented',
-        );
-        isLoading.value = false;
-        return;
-      }
+      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Navigate to OTP verification screen
       Get.toNamed(
@@ -91,15 +69,13 @@ class VerifyEmailController extends GetxController {
           'verificationType': selectedMethod.value,
         },
       );
-    } on String catch (errorMessage) {
-      CustomSnackbar.error(
-        title: 'Error',
-        message: errorMessage,
-      );
     } catch (e) {
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to send OTP. Please try again.',
+      Get.snackbar(
+        'Error',
+        'Failed to send OTP. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Get.theme.colorScheme.onError,
       );
     } finally {
       isLoading.value = false;

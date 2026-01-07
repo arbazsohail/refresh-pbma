@@ -278,7 +278,8 @@ class PointsTiersScreen extends GetView<PointsTiersController> {
                 onTap: () => Get.toNamed('/rewards-terms'),
                 child: const Center(
                   child: Text(
-                    'Rewards Tier Terms of Use',
+                    // 'Rewards Tier Terms of Use',
+                    'Rewards Program Terms of Use',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

@@ -2,28 +2,17 @@ import 'package:get/get.dart';
 import '../models/blog_model.dart';
 import '../models/faq_model.dart';
 import '../utils/app_constants.dart';
-import '../services/storage_service.dart';
 
 class HomePageController extends GetxController {
-  final StorageService _storageService = Get.find<StorageService>();
-
   final List<Map<String, String>> popularServices = AppConstants.popularServices;
   final RxList<BlogModel> blogs = <BlogModel>[].obs;
   final RxList<FAQModel> faqs = <FAQModel>[].obs;
   final RxInt expandedFaqIndex = (-1).obs;
-  final RxString userName = 'User'.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadUserName();
     loadData();
-  }
-
-  void loadUserName() {
-    final name = _storageService.getUserName() ?? 'User';
-    // Get first name only (split by space and take first part)
-    userName.value = name.split(' ').first;
   }
 
   void loadData() {

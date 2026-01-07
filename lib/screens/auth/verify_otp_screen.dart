@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
-import '../../controllers/auth/verify_otp_controller.dart';
+import '../../controllers/verify_otp_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/custom_button.dart';

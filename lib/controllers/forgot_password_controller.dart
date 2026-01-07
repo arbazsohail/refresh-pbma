@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import '../../services/auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
+import '../routes/app_routes.dart';
 
 class ForgotPasswordController extends GetxController {
-  // Services
-  final AuthService _authService = Get.find<AuthService>();
-
   final TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final RxBool isLoading = false.obs;
@@ -29,7 +24,7 @@ class ForgotPasswordController extends GetxController {
     return null;
   }
 
-  // Send reset code via email (using same endpoint as signup OTP)
+  // Send reset code
   Future<void> sendCode() async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -38,16 +33,7 @@ class ForgotPasswordController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Use the same sendOtpEmail method from AuthService
-      final response = await _authService.sendOtpEmail(
-        email: emailController.text,
-      );
-
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Reset code sent to your email',
-      );
+      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
       // Navigate to OTP verification screen
       Get.toNamed(
@@ -57,17 +43,13 @@ class ForgotPasswordController extends GetxController {
           'verificationType': 'forgotPassword',
         },
       );
-    } on String catch (errorMessage) {
-      // Error from AuthService
-      CustomSnackbar.error(
-        title: 'Error',
-        message: errorMessage,
-      );
     } catch (e) {
-      // Unexpected error
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to send reset code. Please try again.',
+      Get.snackbar(
+        'Error',
+        'Failed to send reset code. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Colors.white,
       );
     } finally {
       isLoading.value = false;

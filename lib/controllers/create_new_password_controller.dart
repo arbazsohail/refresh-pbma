@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import '../../services/auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
+import '../routes/app_routes.dart';
 
 class CreateNewPasswordController extends GetxController {
-  // Services
-  final AuthService _authService = Get.find<AuthService>();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -61,31 +57,25 @@ class CreateNewPasswordController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Call auth service to set/reset password
-      final response = await _authService.setPassword(
-        newPassword: newPasswordController.text,
-        confirmPassword: confirmPasswordController.text,
-      );
+      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Password changed successfully!',
+      Get.snackbar(
+        'Success',
+        'Your password has been changed successfully!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
       );
 
       // Navigate to login screen
       Get.offAllNamed(AppRoutes.login);
-    } on String catch (errorMessage) {
-      // Error from AuthService
-      CustomSnackbar.error(
-        title: 'Error',
-        message: errorMessage,
-      );
     } catch (e) {
-      // Unexpected error
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to change password. Please try again.',
+      Get.snackbar(
+        'Error',
+        'Failed to change password. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Colors.white,
       );
     } finally {
       isLoading.value = false;

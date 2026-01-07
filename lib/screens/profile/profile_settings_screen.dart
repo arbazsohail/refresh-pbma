@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/settings/profile_settings_controller.dart';
+import '../../controllers/profile_settings_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -77,7 +77,7 @@ class ProfileSettingsScreen extends GetView<ProfileSettingsController> {
 
                   const SizedBox(height: 20),
 
-                  // Email field (disabled - cannot be edited)
+                  // Email field
                   const Text(
                     'Email',
                     style: TextStyle(
@@ -96,12 +96,11 @@ class ProfileSettingsScreen extends GetView<ProfileSettingsController> {
                     validation: controller.validateEmail,
                     filledColor: AppColors.lightGray,
                     borderRadius: 50,
-                    enabled: false, // Email cannot be edited
                   ),
 
                   const SizedBox(height: 20),
 
-                  // Phone Number field (disabled - cannot be edited)
+                  // Phone Number field
                   const Text(
                     'Phone Number',
                     style: TextStyle(
@@ -120,7 +119,6 @@ class ProfileSettingsScreen extends GetView<ProfileSettingsController> {
                     validation: controller.validatePhone,
                     filledColor: AppColors.lightGray,
                     borderRadius: 50,
-                    enabled: false, // Phone number cannot be edited
                   ),
 
                   const SizedBox(height: 32),

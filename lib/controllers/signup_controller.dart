@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../routes/app_routes.dart';
-import '../../services/auth_service.dart';
-import '../../services/google_auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
-import '../../widgets/custom_loading_dialog.dart';
+import '../routes/app_routes.dart';
 
 class SignupController extends GetxController {
-  // Services
-  final AuthService _authService = Get.find<AuthService>();
-  final GoogleAuthService _googleAuthService = Get.find<GoogleAuthService>();
-
   // Text controllers for Step 1
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -135,16 +127,19 @@ class SignupController extends GetxController {
     currentStep.value = 1;
   }
 
-  // Sign up with API integration
+  // Sign up
   Future<void> signUp() async {
     if (!step2FormKey.currentState!.validate()) {
       return;
     }
 
     if (!agreeToTerms.value) {
-      CustomSnackbar.warning(
-        title: 'Terms Required',
-        message: 'Please agree to the terms and conditions',
+      Get.snackbar(
+        'Terms Required',
+        'Please agree to the terms and conditions',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Colors.white,
       );
       return;
     }
@@ -152,24 +147,9 @@ class SignupController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Call auth service to register user
-      final response = await _authService.register(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        mobileNo: selectedCountryCode.value + phoneController.text,
-        dob: dobController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
-      );
+      await Future.delayed(const Duration(seconds: 2)); // Simulate API call
 
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Account created successfully!',
-      );
-
-      // Navigate to verify email screen
+      // Navigate to verify email screen on success
       Get.toNamed(
         AppRoutes.verifyEmail,
         arguments: {
@@ -177,17 +157,13 @@ class SignupController extends GetxController {
           'phoneNumber': phoneController.text,
         },
       );
-    } on String catch (errorMessage) {
-      // Error from AuthService
-      CustomSnackbar.error(
-        title: 'Signup Failed',
-        message: errorMessage,
-      );
     } catch (e) {
-      // Unexpected error
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'An unexpected error occurred. Please try again.',
+      Get.snackbar(
+        'Error',
+        'Failed to sign up. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Colors.white,
       );
     } finally {
       isLoading.value = false;
@@ -196,74 +172,25 @@ class SignupController extends GetxController {
 
   // Sign up with Google
   Future<void> signUpWithGoogle() async {
-    try {
-      // Show centered loading dialog
-      CustomLoadingDialog.show(message: 'Signing up with Google...');
-
-      // Sign in with Google
-      final googleUser = await _googleAuthService.signIn();
-
-      if (googleUser == null) {
-        // User cancelled the sign-in
-        CustomLoadingDialog.hide();
-        return;
-      }
-
-      // Call backend API with Google user data
-      final response = await _authService.socialLogin(
-        name: googleUser.displayName ?? '',
-        email: googleUser.email,
-        platformType: 'google',
-        platformId: googleUser.id,
-      );
-
-      // Hide loading dialog
-      CustomLoadingDialog.hide();
-
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Account created successfully!',
-      );
-
-      // Navigate to main page
-      Get.offAllNamed(AppRoutes.mainPage);
-    } on String catch (errorMessage) {
-      // Hide loading dialog
-      CustomLoadingDialog.hide();
-
-      // Error from AuthService
-      CustomSnackbar.error(
-        title: 'Signup Failed',
-        message: errorMessage,
-      );
-    } catch (e) {
-      // Hide loading dialog
-      CustomLoadingDialog.hide();
-
-      // Unexpected error
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to sign up with Google. Please try again.',
-      );
-      print('Google Sign-Up Error: $e');
-    }
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+    );
   }
 
   // Sign up with Apple
   Future<void> signUpWithApple() async {
-    // Show centered loading dialog
-    CustomLoadingDialog.show(message: 'Signing up with Apple...');
-
-    // Simulate delay for now
-    await Future.delayed(const Duration(seconds: 1));
-
-    // Hide loading dialog
-    CustomLoadingDialog.hide();
-
-    CustomSnackbar.warning(
-      title: 'Coming Soon',
-      message: 'Apple sign-up is currently under development',
+    Get.snackbar(
+      'Under Development',
+      'This feature is currently under development',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orange,
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
     );
   }
 

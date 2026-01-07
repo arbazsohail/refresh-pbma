@@ -51,8 +51,9 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 ),
               ),
 
-              // PageView with content - Now flexible
-              Expanded(
+              // PageView with content
+              SizedBox(
+                height: Get.height * 0.70,
                 child: PageView.builder(
                   controller: controller.pageController,
                   onPageChanged: controller.onPageChanged,
@@ -67,8 +68,6 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   },
                 ),
               ),
-
-              const SizedBox(height: 16),
 
               // Page Indicators - Fixed position
               Obx(
@@ -93,8 +92,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 16),
+              Spacer(),
 
               // Navigation Buttons at bottom
               Padding(
@@ -189,7 +187,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -211,73 +209,59 @@ class _OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Calculate responsive image height (max 280, min 200)
-        final imageHeight = (constraints.maxHeight * 0.45).clamp(200.0, 280.0);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
 
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
+          // Image with Figma specs: 96px border radius, 3px border, cover
+          Container(
+            width: double.infinity,
+            height: 280,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(96),
+              border: Border.all(color: AppColors.secondary, width: 3),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 16),
-
-                  // Image with Figma specs: 96px border radius, 3px border, cover
-                  Container(
-                    width: double.infinity,
-                    height: imageHeight,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(96),
-                      border: Border.all(color: AppColors.secondary, width: 3),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(93), // 96 - 3 (border width)
-                      child: Image.asset(image, fit: BoxFit.cover),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Title - Figma specs
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: AppColors.darkBlueText,
-                      fontSize: 23,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'DMSans',
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Description - Figma specs
-                  Text(
-                    description,
-                    style: const TextStyle(
-                      color: AppColors.greyText,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'DMSans',
-                      height: 1.5, // 150% line height
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 16),
-                ],
-              ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(93), // 96 - 3 (border width)
+              child: Image.asset(image, fit: BoxFit.cover),
             ),
           ),
-        );
-      },
+
+          const SizedBox(height: 32),
+
+          // Title - Figma specs
+          Text(
+            title,
+            style: const TextStyle(
+              color: AppColors.darkBlueText,
+              fontSize: 23,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'DMSans',
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 12),
+
+          // Description - Figma specs
+          Text(
+            description,
+            style: const TextStyle(
+              color: AppColors.greyText,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'DMSans',
+              height: 1.5, // 150% line height
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }

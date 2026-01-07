@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/auth/create_new_password_controller.dart';
+import '../../controllers/create_new_password_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/custom_button.dart';

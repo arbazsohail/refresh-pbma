@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../services/auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
 
 class ChangePasswordSettingsController extends GetxController {
-  // Services
-  final AuthService _authService = Get.find<AuthService>();
   // Form key
   final formKey = GlobalKey<FormState>();
 
@@ -68,17 +64,22 @@ class ChangePasswordSettingsController extends GetxController {
     isLoading.value = true;
 
     try {
-      // Call API to change password
-      final response = await _authService.changePassword(
-        currentPassword: oldPasswordController.text,
-        newPassword: newPasswordController.text,
-        confirmPassword: confirmPasswordController.text,
-      );
+      // In a real app, you would call an API to change the password
+      await Future.delayed(const Duration(seconds: 1));
 
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Password changed successfully',
+      // Simulate API call
+      // await apiService.changePassword(
+      //   oldPassword: oldPasswordController.text,
+      //   newPassword: newPasswordController.text,
+      // );
+
+      Get.snackbar(
+        'Success',
+        'Password changed successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
       );
 
       // Clear fields
@@ -86,19 +87,17 @@ class ChangePasswordSettingsController extends GetxController {
       newPasswordController.clear();
       confirmPasswordController.clear();
 
-      // Go back to previous screen
+      // Go back after a delay
+      await Future.delayed(const Duration(seconds: 1));
       Get.back();
-    } on String catch (errorMessage) {
-      // Error from AuthService
-      CustomSnackbar.error(
-        title: 'Error',
-        message: errorMessage,
-      );
     } catch (e) {
-      // Unexpected error
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to change password. Please try again.',
+      Get.snackbar(
+        'Error',
+        'Failed to change password. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
       );
     } finally {
       isLoading.value = false;

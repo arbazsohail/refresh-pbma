@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../controllers/settings/settings_controller.dart';
+import '../../controllers/settings_controller.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/custom_app_bar.dart';

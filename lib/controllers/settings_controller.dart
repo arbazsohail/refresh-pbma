@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../services/storage_service.dart';
-import '../../services/auth_service.dart';
-import '../../widgets/custom_snackbar.dart';
+import '../services/storage_service.dart';
 
 class SettingsController extends GetxController {
   final StorageService _storageService = Get.find<StorageService>();
-  final AuthService _authService = Get.find<AuthService>();
 
   // Notification settings
   final RxBool pushNotificationsEnabled = true.obs;
   final RxBool emailUpdatesEnabled = true.obs;
-  final RxBool isLoggingOut = false.obs;
-  final RxBool isTogglingNotification = false.obs;
 
   @override
   void onInit() {
@@ -29,51 +24,9 @@ class SettingsController extends GetxController {
   }
 
   // Toggle push notifications
-  Future<void> togglePushNotifications(bool value) async {
-    // Prevent multiple concurrent toggles
-    if (isTogglingNotification.value) return;
-
-    // Optimistically update UI
-    final previousValue = pushNotificationsEnabled.value;
+  void togglePushNotifications(bool value) {
     pushNotificationsEnabled.value = value;
-
-    isTogglingNotification.value = true;
-
-    try {
-      // Call API to toggle notification
-      final response = await _authService.toggleNotification();
-
-      // Update local storage with server response
-      final serverValue = response['data']?['push_notification'] ?? value;
-      pushNotificationsEnabled.value = serverValue;
-      await _storageService.saveBool('pushNotifications', serverValue);
-
-      // Show success message
-      CustomSnackbar.success(
-        title: 'Success',
-        message: response['message'] ?? 'Notification settings updated',
-      );
-    } on String catch (errorMessage) {
-      // Revert to previous value on error
-      pushNotificationsEnabled.value = previousValue;
-
-      // Show error message
-      CustomSnackbar.error(
-        title: 'Error',
-        message: errorMessage,
-      );
-    } catch (e) {
-      // Revert to previous value on error
-      pushNotificationsEnabled.value = previousValue;
-
-      // Show error message
-      CustomSnackbar.error(
-        title: 'Error',
-        message: 'Failed to update notification settings. Please try again.',
-      );
-    } finally {
-      isTogglingNotification.value = false;
-    }
+    _storageService.saveBool('pushNotifications', value);
   }
 
   // Toggle email updates
@@ -200,54 +153,29 @@ class SettingsController extends GetxController {
 
                   // Logout button
                   Expanded(
-                    child: Obx(
-                      () => TextButton(
-                        onPressed: isLoggingOut.value
-                            ? null
-                            : () async {
-                                // Set loading state
-                                isLoggingOut.value = true;
-
-                                // Call logout API and clear local data
-                                try {
-                                  await _authService.logout();
-                                } catch (e) {
-                                  print('Logout error: $e');
-                                  // Continue with navigation even if API fails
-                                } finally {
-                                  isLoggingOut.value = false;
-                                }
-
-                                // Close dialog and navigate to join screen
-                                Get.back();
-                                Get.offAllNamed('/join');
-                              },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          disabledBackgroundColor: Colors.red.withValues(alpha: 0.6),
+                    child: TextButton(
+                      onPressed: () {
+                        // Clear user data
+                        _storageService.clearAll();
+                        // Navigate to join screen
+                        Get.back();
+                        Get.offAllNamed('/join');
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
                         ),
-                        child: isLoggingOut.value
-                            ? const SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                ),
-                              )
-                            : const Text(
-                                'Log Out',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'DMSans',
-                                ),
-                              ),
+                      ),
+                      child: const Text(
+                        'Log Out',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'DMSans',
+                        ),
                       ),
                     ),
                   ),

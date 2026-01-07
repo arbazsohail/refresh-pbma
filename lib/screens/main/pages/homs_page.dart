@@ -31,7 +31,7 @@ class HomePage extends GetView<HomePageController> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: CustomAppBar(
-        leadingText: 'Welcome Back,\n${controller.userName.value}!',
+        leadingText: 'Welcome Back,\nJayy!',
         showNotification: true,
         showSettings: true,
       ),
@@ -385,36 +385,35 @@ class HomePage extends GetView<HomePageController> {
                       onTap: controller.callUs,
                       child: Container(
                         height: Get.height * 0.15,
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
                               'assets/icons/call.svg',
-                              width: 28,
-                              height: 28,
+                              width: 32,
+                              height: 32,
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 12),
                             const Text(
                               'Call Us',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'DMSans',
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 4),
                             const Text(
                               'Speak Directly',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 11,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: 'DMSans',
                               ),
@@ -432,36 +431,36 @@ class HomePage extends GetView<HomePageController> {
                       onTap: controller.emailSupport,
                       child: Container(
                         height: Get.height * 0.15,
-                        padding: const EdgeInsets.all(12),
+
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
                               'assets/icons/mxg.svg',
-                              width: 28,
-                              height: 28,
+                              width: 32,
+                              height: 32,
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 12),
                             const Text(
                               'Email Support',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'DMSans',
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 4),
                             const Text(
                               'Get help via email',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 11,
+                                fontSize: 12,
                                 fontWeight: FontWeight.w400,
                                 fontFamily: 'DMSans',
                               ),
