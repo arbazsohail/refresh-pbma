@@ -60,7 +60,7 @@ class AppConstants {
       'url': 'https://refreshpbma.com/botox/'
     },
     {
-      'image': 'assets/images/services/restore_volume.jpg',
+      'image': 'assets/images/services/restore_volume_2.png',
       'label': 'Restore Volume',
       'url': 'https://refreshpbma.com/rha-fillers/'
     },
@@ -70,7 +70,8 @@ class AppConstants {
       'url': 'https://refreshpbma.com/laser-hair-removal/'
     },
     {
-      'image': 'assets/images/services/tattoo_regret.webp',
+      'image': 'assets/images/services/check1.png',
+      // 'image': 'assets/images/services/tattoo_regret.webp',
       'label': 'Remove Unwanted Tattoos',
       'url': 'https://refreshpbma.com/tattoo-removal-and-skin-renewal/'
     },
@@ -90,7 +91,7 @@ class AppConstants {
       'url': 'https://refreshpbma.com/female-hormone-replacement-therapy/'
     },
     {
-      'image': 'assets/images/services/oxygen_therapy.jpg',
+      'image': 'assets/images/services/tattoo_regret.webp',
       'label': 'Oxygen Therapy',
       'url': 'https://refreshpbma.com/hyperbaric-oxygen-therapy/'
     },

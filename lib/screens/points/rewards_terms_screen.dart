@@ -20,13 +20,16 @@ class RewardsTermsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Refresh Loyalty Points Program Terms of Use',
-              style: TextStyle(
-                color: Color(0xFF141413),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'DMSans',
+            Center(
+              child: const Text(
+                'Rewards Program Terms of Use',
+                style: TextStyle(
+                  color: Color(0xFF141413),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'DMSans',
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(height: 20),
