@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/payment_question_model.dart';
+import '../services/payment_service.dart';
 import '../widgets/custom_snackbar.dart';
 import '../widgets/verification_success_dialog.dart';
 
 class PaymentQuestionnaireController extends GetxController {
+  final PaymentService _paymentService = Get.find<PaymentService>();
+
   // Current question index
   final RxInt currentQuestionIndex = 0.obs;
 
@@ -225,17 +228,52 @@ class PaymentQuestionnaireController extends GetxController {
   }
 
   // Submit questionnaire
-  void submitQuestionnaire() {
+  Future<void> submitQuestionnaire() async {
+    if (!canSubmit) {
+      CustomSnackbar.warning(
+        title: 'Consent Required',
+        message: 'Please agree to both consent statements to continue',
+      );
+      return;
+    }
+
+    // Build questionnaire data array
+    final List<Map<String, String>> questionnaireData = [];
+
+    for (var question in questions) {
+      String answer = '';
+
+      if (question.hasTextInput || question.isTextArea) {
+        // Text input questions
+        answer = question.textInput ?? '';
+      } else if (question.allowMultiple) {
+        // Multiple choice questions
+        answer = (question.selectedAnswers ?? []).join(', ');
+      } else {
+        // Single choice questions
+        answer = question.selectedAnswer ?? '';
+      }
+
+      questionnaireData.add({
+        'question': question.question,
+        'answer': answer.isEmpty ? 'Not provided' : answer,
+      });
+    }
+
     isLoading.value = true;
 
-    Future.delayed(const Duration(seconds: 2), () {
+    try {
+      final response = await _paymentService.submitConsentQuestionnaire(
+        questionnaireDetails: questionnaireData,
+      );
+
       isLoading.value = false;
 
-      // Show success dialog using CustomSuccessDialog
+      // Show success dialog
       Get.dialog(
         CustomSuccessDialog(
           title: 'Application Submitted!',
-          description:
+          description: response['message'] ??
               'Thank you for submitting your payment application. We\'ll review your information and get back to you soon.',
           buttonText: 'Done',
           showConfetti: true,
@@ -248,6 +286,18 @@ class PaymentQuestionnaireController extends GetxController {
         ),
         barrierDismissible: false,
       );
-    });
+    } on String catch (errorMessage) {
+      isLoading.value = false;
+      CustomSnackbar.error(
+        title: 'Error',
+        message: errorMessage,
+      );
+    } catch (e) {
+      isLoading.value = false;
+      CustomSnackbar.error(
+        title: 'Error',
+        message: 'Failed to submit application. Please try again.',
+      );
+    }
   }
 }

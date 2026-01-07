@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:refresh_pbma/widgets/image_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/app_colors.dart';
+import '../models/service_model.dart';
 
 class ServiceCard extends StatelessWidget {
-  final String image;
-  final String label;
-  final VoidCallback? onTap;
+  final ServiceModel service;
 
   const ServiceCard({
     super.key,
-    required this.image,
-    required this.label,
-    this.onTap,
+    required this.service,
   });
+
+  Future<void> _launchURL() async {
+    if (service.ctaLink.isEmpty) return;
+
+    final Uri uri = Uri.parse(service.ctaLink);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      Get.snackbar(
+        'Error',
+        'Could not open the link',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: _launchURL,
       child: Container(
         width: Get.width * 0.50,
         // Fill the parent height to ensure all cards are same height
@@ -37,7 +50,7 @@ class ServiceCard extends StatelessWidget {
               // Image - Use Expanded to fill available space and prevent overflow
               Expanded(
                 child: ImageWidget(
-                  image,
+                  service.imageUrl,
                   borderRadius: 12,
                   width: double.infinity,
                   height: double.infinity,
@@ -90,7 +103,7 @@ class ServiceCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Text(
-                  label,
+                  service.title,
                   style: const TextStyle(
                     color: AppColors.blackText,
                     fontSize: 13,

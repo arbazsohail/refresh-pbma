@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/contact_us_success_dialog.dart';
+import '../services/support_service.dart';
 
 class ContactUsController extends GetxController {
+  final SupportService _supportService = Get.find<SupportService>();
   // Form key
   final formKey = GlobalKey<FormState>();
 
@@ -59,17 +61,16 @@ class ContactUsController extends GetxController {
     isLoading.value = true;
 
     try {
-      // In a real app, you would call an API to send the contact message
-      await Future.delayed(const Duration(seconds: 2));
+      // Call support query API
+      final response = await _supportService.submitSupportQuery(
+        name: nameController.text,
+        email: emailController.text,
+        message: messageController.text,
+      );
 
-      // Simulate API call
-      // await apiService.sendContactMessage(
-      //   name: nameController.text,
-      //   email: emailController.text,
-      //   message: messageController.text,
-      // );
+      isLoading.value = false;
 
-      // Clear fields
+      // Clear fields after successful submission
       nameController.clear();
       emailController.clear();
       messageController.clear();
@@ -84,17 +85,23 @@ class ContactUsController extends GetxController {
         ),
         barrierDismissible: false,
       );
+
+      print('✅ Support query submitted successfully: ${response['message']}');
     } catch (e) {
+      isLoading.value = false;
+
       Get.snackbar(
         'Error',
-        'Failed to send message. Please try again.',
+        e.toString().contains('Exception:')
+            ? e.toString().replaceAll('Exception:', '').trim()
+            : 'Failed to send message. Please try again.',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 3),
       );
-    } finally {
-      isLoading.value = false;
+
+      print('❌ Failed to submit support query: $e');
     }
   }
 }

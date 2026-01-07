@@ -1,23 +1,28 @@
 import 'package:get/get.dart';
 import '../models/blog_model.dart';
 import '../models/faq_model.dart';
-import '../utils/app_constants.dart';
+import '../models/service_model.dart';
 import '../services/storage_service.dart';
+import '../services/api_service.dart';
+import '../services/api_constants.dart';
 
 class HomePageController extends GetxController {
   final StorageService _storageService = Get.find<StorageService>();
+  final ApiService _apiService = Get.find<ApiService>();
 
-  final List<Map<String, String>> popularServices = AppConstants.popularServices;
+  final RxList<ServiceModel> services = <ServiceModel>[].obs;
   final RxList<BlogModel> blogs = <BlogModel>[].obs;
   final RxList<FAQModel> faqs = <FAQModel>[].obs;
   final RxInt expandedFaqIndex = (-1).obs;
   final RxString userName = 'User'.obs;
+  final RxBool isLoadingServices = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     loadUserName();
     loadData();
+    fetchServices();
   }
 
   void loadUserName() {
@@ -141,5 +146,28 @@ class HomePageController extends GetxController {
   }
 
   void emailSupport() {
+  }
+
+  // Fetch services from API
+  Future<void> fetchServices() async {
+    try {
+      isLoadingServices.value = true;
+
+      final response = await _apiService.get(ApiConstants.getServices);
+
+      print('📥 Get Services Response: ${response.data}');
+
+      if (response.data['code'] == 200) {
+        final List<dynamic> data = response.data['data'] ?? [];
+        services.value = data.map((json) => ServiceModel.fromJson(json)).toList();
+        print('✅ Loaded ${services.length} services');
+      }
+    } catch (e) {
+      print('❌ Error fetching services: $e');
+      // Keep services empty on error
+      services.value = [];
+    } finally {
+      isLoadingServices.value = false;
+    }
   }
 }

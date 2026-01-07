@@ -5,10 +5,12 @@ import '../../utils/app_colors.dart';
 class RedeemPointsDialog extends StatelessWidget {
   final int availablePoints;
   final int minimumPoints;
+  final Future<bool> Function(int points) onRedeem;
 
   const RedeemPointsDialog({
     super.key,
     required this.availablePoints,
+    required this.onRedeem,
     this.minimumPoints = 500,
   });
 
@@ -16,6 +18,7 @@ class RedeemPointsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final RxDouble selectedPoints = (minimumPoints.toDouble()).obs;
     final RxDouble creditAmount = (minimumPoints / 10).obs;
+    final RxBool isSubmitting = false.obs;
 
     return Dialog(
       insetPadding: EdgeInsets.all(15),
@@ -107,38 +110,52 @@ class RedeemPointsDialog extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Submit Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.back(result: selectedPoints.value.toInt());
-                  // Show success message
-                  Get.snackbar(
-                    'Request Submitted',
-                    'Your redeem request has been submitted successfully',
-                    snackPosition: SnackPosition.BOTTOM,
+            Obx(
+              () => SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isSubmitting.value
+                      ? null
+                      : () async {
+                          isSubmitting.value = true;
+
+                          // Call the API through controller
+                          final success = await onRedeem(selectedPoints.value.toInt());
+
+                          isSubmitting.value = false;
+
+                          // Only close dialog if the request was successful
+                          if (success) {
+                            Get.back();
+                          }
+                          // If failed, dialog stays open and snackbar is shown by controller
+                        },
+                  style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    colorText: Colors.white,
-                    margin: const EdgeInsets.all(16),
-                    borderRadius: 8,
-                    duration: const Duration(seconds: 3),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    disabledBackgroundColor: AppColors.primary.withValues(alpha: 0.6),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'Submit Redeem Request',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'DMSans',
-                  ),
+                  child: isSubmitting.value
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : const Text(
+                          'Submit Redeem Request',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'DMSans',
+                          ),
+                        ),
                 ),
               ),
             ),

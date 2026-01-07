@@ -57,31 +57,52 @@ class HomePage extends GetView<HomePageController> {
             const SizedBox(height: 16),
 
             // Auto-scrolling Popular Services
-            AutoScrollBanner(
-              height: Get.height * 0.15,
-              padding: const EdgeInsets.only(left: 20),
-              scrollDuration: const Duration(milliseconds: 800),
-              pauseDuration: const Duration(seconds: 3),
-              children:
-                  controller.popularServices.asMap().entries.map((entry) {
-                    final index = entry.key;
-                    final service = entry.value;
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        right:
-                            index < controller.popularServices.length - 1
-                                ? 16
-                                : 20,
-                      ),
-                      child: GestureDetector(
-                        onTap: () => _launchURL(service['url']!),
-                        child: ServiceCard(
-                          image: service['image']!,
-                          label: service['label']!,
+            Obx(
+              () => controller.isLoadingServices.value
+                  ? Container(
+                      height: Get.height * 0.15,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
                         ),
                       ),
-                    );
-                  }).toList(),
+                    )
+                  : controller.services.isEmpty
+                      ? Container(
+                          height: Get.height * 0.15,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: const Center(
+                            child: Text(
+                              'No services available',
+                              style: TextStyle(
+                                color: Color(0xFF888F9A),
+                                fontSize: 14,
+                                fontFamily: 'DMSans',
+                              ),
+                            ),
+                          ),
+                        )
+                      : AutoScrollBanner(
+                          height: Get.height * 0.15,
+                          padding: const EdgeInsets.only(left: 20),
+                          scrollDuration: const Duration(milliseconds: 800),
+                          pauseDuration: const Duration(seconds: 3),
+                          children:
+                              controller.services.asMap().entries.map((entry) {
+                                final index = entry.key;
+                                final service = entry.value;
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    right:
+                                        index < controller.services.length - 1
+                                            ? 16
+                                            : 20,
+                                  ),
+                                  child: ServiceCard(service: service),
+                                );
+                              }).toList(),
+                        ),
             ),
 
             const SizedBox(height: 24),

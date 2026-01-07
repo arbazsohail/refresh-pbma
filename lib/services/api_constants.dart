@@ -30,6 +30,7 @@ class ApiConstants {
 
   // ========== Home Endpoints ==========
   static const String getHomeData = '/home';
+  static const String getServices = '/api/user/service'; // Get all services
 
   // ========== Referral Endpoints ==========
   static const String getReferrals = '/referrals';
@@ -43,16 +44,19 @@ class ApiConstants {
   // ========== Wallet Endpoints ==========
   static const String getWalletBalance = '/wallet/balance';
   static const String getWalletTransactions = '/wallet/transactions';
+  static const String redeemRequest = '/api/user/redeem-request'; // Submit redeem points request
 
   // ========== FAQ & Support Endpoints ==========
   static const String getFaqs = '/api/user/faq';
   static const String contactUs = '/contact';
+  static const String supportQuery = '/api/user/support-query'; // Submit support/contact query
 
   // ========== Notifications ==========
   static const String getNotifications = '/notifications';
   static const String markNotificationRead = '/notifications/mark-read';
 
-  // ========== Payment ==========
+  // ========== Payment & Consent ==========
+  static const String consentSubmission = '/api/user/consent-submission'; // Submit payment application questionnaire
   static const String getPaymentQuestions = '/payment/questions';
   static const String submitPaymentApplication = '/payment/submit';
 

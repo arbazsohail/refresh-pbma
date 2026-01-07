@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'api_constants.dart';
@@ -17,8 +19,12 @@ class ApiService extends GetxService {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(milliseconds: ApiConstants.connectionTimeout),
-        receiveTimeout: const Duration(milliseconds: ApiConstants.receiveTimeout),
+        connectTimeout: const Duration(
+          milliseconds: ApiConstants.connectionTimeout,
+        ),
+        receiveTimeout: const Duration(
+          milliseconds: ApiConstants.receiveTimeout,
+        ),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -40,6 +46,31 @@ class ApiService extends GetxService {
             options.headers['Authorization'] = 'Bearer $userToken';
           }
 
+          // Log request details
+          final headersLog = StringBuffer();
+          options.headers.forEach((key, value) {
+            // Don't log full token value for security, just show if present
+            if (key == 'Authorization') {
+              headersLog.writeln(
+                '  $key: Bearer ${value.toString().replaceAll(RegExp(r'Bearer '), '').substring(0, 20)}...',
+              );
+            } else if (key == 'token') {
+              headersLog.writeln(
+                '  $key: ${value.toString().substring(0, 20)}...',
+              );
+            } else {
+              headersLog.writeln('  $key: $value');
+            }
+          });
+
+          // developer.log(
+          //   '📤 ${options.method} ${options.path}\nHeaders:\n$headersLog',
+          //   name: 'ApiService',
+          //   time: DateTime.now(),
+          // );
+
+          log('TOKEN: $userToken');
+
           return handler.next(options);
         },
         onResponse: (response, handler) {
@@ -50,7 +81,11 @@ class ApiService extends GetxService {
           if (error.response?.statusCode == 401) {
             // Clear session data (keep app settings like FCM token, onboarding)
             await _storageService.clearSession();
-            print('🔒 Session expired - user logged out');
+            // developer.log(
+            //   '🔒 Session expired - user logged out',
+            //   name: 'ApiService',
+            //   level: 900, // WARNING level
+            // );
             // Navigate to login
             Get.offAllNamed('/login');
           }
@@ -161,10 +196,7 @@ class ApiService extends GetxService {
         ...?additionalData,
       });
 
-      final response = await _dio.post(
-        endpoint,
-        data: formData,
-      );
+      final response = await _dio.post(endpoint, data: formData);
       return response;
     } on DioException catch (e) {
       throw _handleError(e);
@@ -194,7 +226,12 @@ class ApiService extends GetxService {
       errorMessage = 'An unexpected error occurred. Please try again.';
     }
 
-    print('🔥 API Error: $errorMessage');
+    // developer.log(
+    //   '🔥 API Error: $errorMessage',
+    //   name: 'ApiService',
+    //   level: 1000, // ERROR level
+    //   error: error,
+    // );
     return errorMessage;
   }
 }

@@ -67,11 +67,16 @@ class CreateNewPasswordController extends GetxController {
         confirmPassword: confirmPasswordController.text,
       );
 
+      isLoading.value = false;
+
       // Show success message
       CustomSnackbar.success(
         title: 'Success',
         message: response['message'] ?? 'Password changed successfully!',
       );
+
+      // Delay navigation to allow snackbar to show and avoid disposal errors
+      await Future.delayed(const Duration(milliseconds: 500));
 
       // Navigate to login screen
       Get.offAllNamed(AppRoutes.login);

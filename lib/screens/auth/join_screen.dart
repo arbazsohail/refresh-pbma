@@ -4,30 +4,52 @@ import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/service_card.dart';
 import '../../widgets/custom_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/auto_scroll_banner.dart';
 import '../../routes/app_routes.dart';
+import '../../models/service_model.dart';
 
 class JoinScreen extends StatelessWidget {
   const JoinScreen({super.key});
 
-  Future<void> _launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      // Error handling agar URL open na ho
-      Get.snackbar(
-        'Error',
-        'Could not open the link',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-  }
+  // Dummy static services for join screen (before authentication)
+  static final List<ServiceModel> dummyServices = [
+    ServiceModel(
+      id: 1,
+      title: 'Botox & Fillers',
+      imageUrl: 'https://refreshpbma.com/wp-content/uploads/2024/01/botox-service.jpg',
+      ctaLink: 'https://refreshpbma.com/services/botox-fillers/',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    ServiceModel(
+      id: 2,
+      title: 'Laser Hair Removal',
+      imageUrl: 'https://refreshpbma.com/wp-content/uploads/2024/01/laser-hair-removal.jpg',
+      ctaLink: 'https://refreshpbma.com/services/laser-hair-removal/',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    ServiceModel(
+      id: 3,
+      title: 'HydraFacial',
+      imageUrl: 'https://refreshpbma.com/wp-content/uploads/2024/01/hydrafacial.jpg',
+      ctaLink: 'https://refreshpbma.com/services/hydrafacial/',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    ServiceModel(
+      id: 4,
+      title: 'Chemical Peels',
+      imageUrl: 'https://refreshpbma.com/wp-content/uploads/2024/01/chemical-peels.jpg',
+      ctaLink: 'https://refreshpbma.com/services/chemical-peels/',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final services = AppConstants.popularServices;
+    final services = dummyServices;
 
     return AppConstants.lightSystemOverlay(
       child: Scaffold(
@@ -95,13 +117,7 @@ class JoinScreen extends StatelessWidget {
                         padding: EdgeInsets.only(
                           right: index < services.length - 1 ? 16 : 0,
                         ),
-                        child: GestureDetector(
-                          onTap: () => _launchURL(service['url']!),
-                          child: ServiceCard(
-                            image: service['image']!,
-                            label: service['label']!,
-                          ),
-                        ),
+                        child: ServiceCard(service: service),
                       );
                     }).toList(),
               ),

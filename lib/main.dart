@@ -9,6 +9,9 @@ import 'services/api_service.dart';
 import 'services/auth_service.dart';
 import 'services/firebase_service.dart';
 import 'services/google_auth_service.dart';
+import 'services/payment_service.dart';
+import 'services/support_service.dart';
+import 'services/wallet_service.dart';
 import 'utils/app_theme.dart';
 
 void main() async {
@@ -41,6 +44,15 @@ Future<void> initServices() async {
 
   // Initialize Google Auth Service
   Get.put(GoogleAuthService());
+
+  // Initialize Payment Service
+  Get.put(PaymentService());
+
+  // Initialize Support Service
+  Get.put(SupportService());
+
+  // Initialize Wallet Service
+  Get.put(WalletService());
 }
 
 class MyApp extends StatelessWidget {
