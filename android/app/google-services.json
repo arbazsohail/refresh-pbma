@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1042699936190",
+    "project_id": "refresher-pbma",
+    "storage_bucket": "refresher-pbma.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042699936190:android:8c12fb89fd058261ae99ef",
+        "android_client_info": {
+          "package_name": "com.app.refreshpbma.sk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042699936190-1eqjnc3sech97c8jvk0cq8feq3vqv3at.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.refreshpbma.sk",
+            "certificate_hash": "6ff32a802f7651b1ca65d3098ed4899dbd5a57a9"
+          }
+        },
+        {
+          "client_id": "1042699936190-hvc0fc26i36lgf8rtfac0gqa0a5bvfjo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIa_r7DFBfqWwYdAmbP8nOpi2nucU9VYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042699936190-hvc0fc26i36lgf8rtfac0gqa0a5bvfjo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042699936190-6crtn098eq1ta7pl1v417fgeobs1etvl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.refreshpbma.sk"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

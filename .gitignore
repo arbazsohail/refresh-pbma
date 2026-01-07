@@ -61,10 +61,10 @@ lib/config/secrets.dart
 lib/services/api_keys.dart
 
 # Firebase Configuration (contains API keys and project IDs)
-google-services.json
-GoogleService-Info.plist
-firebase_options.dart
-lib/firebase_options.dart
+# google-services.json
+# GoogleService-Info.plist
+# firebase_options.dart
+# lib/firebase_options.dart
 
 # Android Signing Keys
 *.jks
