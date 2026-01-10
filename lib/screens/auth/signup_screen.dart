@@ -150,7 +150,7 @@ class SignupScreen extends GetView<SignupController> {
               child: AbsorbPointer(
                 child: CustomTextfield(
                   controller: controller.dobController,
-                  text: 'YYYY/MM/DD',
+                  text: 'MM/DD/YYYY',
                   textInputAction: TextInputAction.next,
                   validation: controller.validateDOB,
                   filledColor: AppColors.lightGray,

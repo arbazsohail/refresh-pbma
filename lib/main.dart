@@ -7,10 +7,11 @@ import 'routes/app_routes.dart';
 import 'services/storage_service.dart';
 import 'services/api_service.dart';
 import 'services/auth_service.dart';
+import 'services/biometric_service.dart';
 import 'services/firebase_service.dart';
 import 'services/google_auth_service.dart';
 import 'services/payment_service.dart';
-import 'services/support_service.dart';
+import 'services/settings_service.dart';
 import 'services/wallet_service.dart';
 import 'utils/app_theme.dart';
 
@@ -39,6 +40,9 @@ Future<void> initServices() async {
   // Initialize Auth Service
   Get.put(AuthService());
 
+  // Initialize Biometric Service
+  Get.put(BiometricService());
+
   // Initialize Firebase Service (FCM)
   Get.put(FirebaseService());
 
@@ -48,8 +52,8 @@ Future<void> initServices() async {
   // Initialize Payment Service
   Get.put(PaymentService());
 
-  // Initialize Support Service
-  Get.put(SupportService());
+  // Initialize Settings Service (FAQs, Support, etc.)
+  Get.put(SettingsService());
 
   // Initialize Wallet Service
   Get.put(WalletService());

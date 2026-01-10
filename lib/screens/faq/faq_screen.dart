@@ -5,6 +5,7 @@ import '../../utils/app_colors.dart';
 import '../../utils/app_constants.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_textfield.dart';
+import '../../widgets/shimmers/faq_shimmer.dart';
 
 class FaqScreen extends GetView<FaqController> {
   const FaqScreen({super.key});
@@ -62,11 +63,7 @@ class FaqScreen extends GetView<FaqController> {
             Expanded(
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.secondary,
-                    ),
-                  );
+                  return const FaqShimmer();
                 }
 
                 if (controller.filteredFaqs.isEmpty) {

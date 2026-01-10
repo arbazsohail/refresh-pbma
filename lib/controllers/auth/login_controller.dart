@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../routes/app_routes.dart';
 import '../../services/auth_service.dart';
+import '../../services/biometric_service.dart';
+import '../../services/storage_service.dart';
 import '../../services/google_auth_service.dart';
 import '../../widgets/custom_snackbar.dart';
 import '../../widgets/custom_loading_dialog.dart';
@@ -9,6 +11,8 @@ import '../../widgets/custom_loading_dialog.dart';
 class LoginController extends GetxController {
   // Services
   final AuthService _authService = Get.find<AuthService>();
+  final BiometricService _biometricService = Get.find<BiometricService>();
+  final StorageService _storageService = Get.find<StorageService>();
   final GoogleAuthService _googleAuthService = Get.find<GoogleAuthService>();
 
   final TextEditingController emailController = TextEditingController();
@@ -18,14 +22,87 @@ class LoginController extends GetxController {
   final RxBool isGoogleLoading = false.obs;
   final RxBool isAppleLoading = false.obs;
 
+  // Biometric settings
+  final RxBool showBiometricButton = false.obs;
+  final RxString biometricType = 'Fingerprint'.obs;
+
   // Form key for validation
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    checkBiometricAvailability();
+  }
 
   @override
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
+  }
+
+  // Check if biometric login should be shown
+  Future<void> checkBiometricAvailability() async {
+    print('🔍 Checking biometric availability...');
+
+    // Check 1: Device supports biometric
+    final isAvailable = await _biometricService.isBiometricAvailable();
+    print('📱 Device supports biometric: $isAvailable');
+
+    // Check 2: User has enabled biometric in settings
+    final isEnabled = _biometricService.isBiometricEnabled();
+    print('⚙️ Biometric enabled in settings: $isEnabled');
+
+    // Check 3: User is logged in (has user data saved)
+    final isLoggedIn = _storageService.isLoggedIn();
+    print('👤 User is logged in: $isLoggedIn');
+
+    // Show biometric button if device supports it, user enabled it, and user is logged in
+    if (isAvailable && isEnabled && isLoggedIn) {
+      showBiometricButton.value = true;
+      biometricType.value = await _biometricService.getBiometricTypeName();
+      print('✅ Biometric login button will be shown (${biometricType.value})');
+    } else {
+      showBiometricButton.value = false;
+      print('❌ Biometric login button will NOT be shown');
+      if (!isAvailable) print('   ⚠️ Device does not support biometric');
+      if (!isEnabled) print('   ⚠️ Biometric not enabled in settings');
+      if (!isLoggedIn) print('   ⚠️ User not logged in yet');
+    }
+  }
+
+  // Login with biometric
+  Future<void> loginWithBiometric() async {
+    try {
+      // Authenticate using biometric
+      final didAuthenticate = await _biometricService.authenticate(
+        localizedReason: 'Authenticate to login',
+      );
+
+      if (didAuthenticate) {
+        // Biometric authentication successful
+        // User is already logged in (has valid token), just navigate to main page
+        CustomSnackbar.success(
+          title: 'Success',
+          message: 'Login successful!',
+        );
+
+        Get.offAllNamed(AppRoutes.mainPage);
+      } else {
+        // Authentication failed
+        CustomSnackbar.error(
+          title: 'Authentication Failed',
+          message: 'Biometric authentication failed. Please try again.',
+        );
+      }
+    } catch (e) {
+      print('❌ Biometric login error: $e');
+      CustomSnackbar.error(
+        title: 'Error',
+        message: 'Failed to authenticate. Please use email and password.',
+      );
+    }
   }
 
   // Email validation

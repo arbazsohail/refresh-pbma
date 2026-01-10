@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../services/storage_service.dart';
 import '../../services/auth_service.dart';
+import '../../services/biometric_service.dart';
 import '../../widgets/custom_snackbar.dart';
 
 class SettingsController extends GetxController {
   final StorageService _storageService = Get.find<StorageService>();
   final AuthService _authService = Get.find<AuthService>();
+  final BiometricService _biometricService = Get.find<BiometricService>();
 
   // Notification settings
   final RxBool pushNotificationsEnabled = true.obs;
@@ -14,10 +16,16 @@ class SettingsController extends GetxController {
   final RxBool isLoggingOut = false.obs;
   final RxBool isTogglingNotification = false.obs;
 
+  // Biometric settings
+  final RxBool biometricEnabled = false.obs;
+  final RxBool biometricAvailable = false.obs;
+  final RxString biometricType = 'Fingerprint'.obs;
+
   @override
   void onInit() {
     super.onInit();
     loadSettings();
+    checkBiometricAvailability();
   }
 
   // Load settings from storage
@@ -26,6 +34,58 @@ class SettingsController extends GetxController {
         _storageService.getBool('pushNotifications') ?? true;
     emailUpdatesEnabled.value =
         _storageService.getBool('emailUpdates') ?? true;
+    biometricEnabled.value = _biometricService.isBiometricEnabled();
+  }
+
+  // Check if biometric authentication is available on this device
+  Future<void> checkBiometricAvailability() async {
+    biometricAvailable.value = await _biometricService.isBiometricAvailable();
+    if (biometricAvailable.value) {
+      biometricType.value = await _biometricService.getBiometricTypeName();
+    }
+  }
+
+  // Toggle biometric authentication
+  Future<void> toggleBiometric(bool value) async {
+    if (value) {
+      // Enabling biometric
+      try {
+        final success = await _biometricService.enableBiometric();
+        if (success) {
+          biometricEnabled.value = true;
+          CustomSnackbar.success(
+            title: 'Success',
+            message: '${biometricType.value} authentication enabled',
+          );
+        } else {
+          biometricEnabled.value = false;
+          CustomSnackbar.error(
+            title: 'Authentication Failed',
+            message: 'Failed to enable ${biometricType.value} authentication',
+          );
+        }
+      } on String catch (errorMessage) {
+        biometricEnabled.value = false;
+        CustomSnackbar.error(
+          title: 'Error',
+          message: errorMessage,
+        );
+      } catch (e) {
+        biometricEnabled.value = false;
+        CustomSnackbar.error(
+          title: 'Error',
+          message: 'Failed to enable biometric authentication',
+        );
+      }
+    } else {
+      // Disabling biometric
+      await _biometricService.disableBiometric();
+      biometricEnabled.value = false;
+      CustomSnackbar.success(
+        title: 'Success',
+        message: '${biometricType.value} authentication disabled',
+      );
+    }
   }
 
   // Toggle push notifications

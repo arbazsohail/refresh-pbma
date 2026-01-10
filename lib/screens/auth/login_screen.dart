@@ -178,6 +178,60 @@ class LoginScreen extends GetView<LoginController> {
 
                   const SizedBox(height: 24),
 
+                  // Biometric login button (only shown if available and enabled)
+                  Obx(
+                    () {
+                      if (!controller.showBiometricButton.value) {
+                        return const SizedBox.shrink();
+                      }
+
+                      return Column(
+                        children: [
+                          // Fingerprint button
+                          Center(
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: controller.loginWithBiometric,
+                                  child: Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.secondary.withValues(alpha: 0.1),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: AppColors.secondary,
+                                        width: 2,
+                                      ),
+                                    ),
+                                    child: Icon(
+                                      controller.biometricType.value == 'Face ID'
+                                          ? Icons.face
+                                          : Icons.fingerprint,
+                                      color: AppColors.secondary,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'Login with ${controller.biometricType.value}',
+                                  style: const TextStyle(
+                                    color: AppColors.greyText,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'DMSans',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                        ],
+                      );
+                    },
+                  ),
+
                   // "or" divider
                   const Row(
                     children: [

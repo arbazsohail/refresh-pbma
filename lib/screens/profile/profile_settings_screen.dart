@@ -116,11 +116,38 @@ class ProfileSettingsScreen extends GetView<ProfileSettingsController> {
                     controller: controller.phoneController,
                     text: 'Enter phone number',
                     textInputType: TextInputType.phone,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.next,
                     validation: controller.validatePhone,
                     filledColor: AppColors.lightGray,
                     borderRadius: 50,
                     enabled: false, // Phone number cannot be edited
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Date of Birth field
+                  const Text(
+                    'Date of Birth',
+                    style: TextStyle(
+                      color: AppColors.blackText,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'DMSans',
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () => controller.selectDOB(context),
+                    child: AbsorbPointer(
+                      child: CustomTextfield(
+                        controller: controller.dobController,
+                        text: 'MM/DD/YYYY',
+                        textInputAction: TextInputAction.done,
+                        validation: controller.validateDOB,
+                        filledColor: AppColors.lightGray,
+                        borderRadius: 50,
+                      ),
+                    ),
                   ),
 
                   const SizedBox(height: 32),

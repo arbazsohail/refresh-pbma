@@ -162,6 +162,7 @@ class AuthService extends GetxService {
             userName: '${data['firstname'] ?? ''} ${data['lastname'] ?? ''}',
             userEmail: data['email'] ?? '',
             userMobile: data['mobile_no'],
+            userDob: data['dob'],
           );
         }
 
@@ -239,6 +240,7 @@ class AuthService extends GetxService {
             userName: '${data['firstname'] ?? ''} ${data['lastname'] ?? ''}',
             userEmail: data['email'] ?? '',
             userMobile: data['mobile_no'],
+            userDob: data['dob'],
           );
         }
 
@@ -313,6 +315,7 @@ class AuthService extends GetxService {
             userName: '${data['firstname'] ?? ''} ${data['lastname'] ?? ''}',
             userEmail: data['email'] ?? '',
             userMobile: data['mobile_no'],
+            userDob: data['dob'],
           );
         }
 
@@ -574,6 +577,7 @@ class AuthService extends GetxService {
             userName: '${data['firstname'] ?? ''} ${data['lastname'] ?? ''}',
             userEmail: data['email'] ?? '',
             userMobile: data['mobile_no'],
+            userDob: data['dob'],
           );
         }
 

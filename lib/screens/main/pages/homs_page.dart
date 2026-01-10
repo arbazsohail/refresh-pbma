@@ -8,6 +8,7 @@ import '../../../widgets/custom_app_bar.dart';
 import '../../../widgets/auto_scroll_banner.dart';
 import '../../../widgets/service_card.dart';
 import '../../../widgets/action_card.dart';
+import '../../../widgets/shimmers/services_shimmer.dart';
 
 class HomePage extends GetView<HomePageController> {
   const HomePage({super.key});
@@ -59,14 +60,8 @@ class HomePage extends GetView<HomePageController> {
             // Auto-scrolling Popular Services
             Obx(
               () => controller.isLoadingServices.value
-                  ? Container(
+                  ? ServicesShimmer(
                       height: Get.height * 0.15,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
-                      ),
                     )
                   : controller.services.isEmpty
                       ? Container(

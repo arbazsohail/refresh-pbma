@@ -67,6 +67,7 @@ class CreateNewPasswordController extends GetxController {
         confirmPassword: confirmPasswordController.text,
       );
 
+      // Stop loading immediately
       isLoading.value = false;
 
       // Show success message
@@ -75,25 +76,30 @@ class CreateNewPasswordController extends GetxController {
         message: response['message'] ?? 'Password changed successfully!',
       );
 
-      // Delay navigation to allow snackbar to show and avoid disposal errors
-      await Future.delayed(const Duration(milliseconds: 500));
+      // Use a post-frame callback to ensure the widget tree is stable before navigation
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        // Small delay to let the UI update
+        await Future.delayed(const Duration(milliseconds: 300));
 
-      // Navigate to login screen
-      Get.offAllNamed(AppRoutes.login);
+        // Navigate to login screen, keeping current route in stack temporarily
+        Get.offNamedUntil(AppRoutes.login, (route) => false);
+      });
     } on String catch (errorMessage) {
+      isLoading.value = false;
+
       // Error from AuthService
       CustomSnackbar.error(
         title: 'Error',
         message: errorMessage,
       );
     } catch (e) {
+      isLoading.value = false;
+
       // Unexpected error
       CustomSnackbar.error(
         title: 'Error',
         message: 'Failed to change password. Please try again.',
       );
-    } finally {
-      isLoading.value = false;
     }
   }
 }

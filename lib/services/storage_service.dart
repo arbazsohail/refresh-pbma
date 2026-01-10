@@ -10,6 +10,7 @@ class StorageService extends GetxService {
   static const String _userNameKey = 'user_name';
   static const String _userEmailKey = 'user_email';
   static const String _userMobileKey = 'user_mobile';
+  static const String _userDobKey = 'user_dob';
   static const String _isLoggedInKey = 'is_logged_in';
   static const String _biometricEnabledKey = 'biometric_enabled';
 
@@ -37,12 +38,16 @@ class StorageService extends GetxService {
     required String userName,
     required String userEmail,
     String? userMobile,
+    String? userDob,
   }) async {
     await _prefs.setString(_userIdKey, userId);
     await _prefs.setString(_userNameKey, userName);
     await _prefs.setString(_userEmailKey, userEmail);
     if (userMobile != null) {
       await _prefs.setString(_userMobileKey, userMobile);
+    }
+    if (userDob != null) {
+      await _prefs.setString(_userDobKey, userDob);
     }
     await _prefs.setBool(_isLoggedInKey, true);
   }
@@ -51,6 +56,7 @@ class StorageService extends GetxService {
   String? getUserName() => _prefs.getString(_userNameKey);
   String? getUserEmail() => _prefs.getString(_userEmailKey);
   String? getUserMobile() => _prefs.getString(_userMobileKey);
+  String? getUserDob() => _prefs.getString(_userDobKey);
   bool isLoggedIn() => _prefs.getBool(_isLoggedInKey) ?? false;
 
   // Biometric Management
@@ -72,6 +78,7 @@ class StorageService extends GetxService {
     await _prefs.remove(_userNameKey);
     await _prefs.remove(_userEmailKey);
     await _prefs.remove(_userMobileKey);
+    await _prefs.remove(_userDobKey);
     await _prefs.remove(_isLoggedInKey);
     // Note: We keep FCM token, onboarding status, and other app-level settings
   }

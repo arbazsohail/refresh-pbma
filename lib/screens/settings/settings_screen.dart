@@ -42,6 +42,26 @@ class SettingsScreen extends GetView<SettingsController> {
 
               const SizedBox(height: 24),
 
+              // Security Section
+              _buildSectionHeader('Security'),
+              const SizedBox(height: 12),
+              Obx(
+                () {
+                  // Only show biometric option if available on device
+                  if (!controller.biometricAvailable.value) {
+                    return const SizedBox.shrink();
+                  }
+                  return _buildSettingItem(
+                    title: controller.biometricType.value,
+                    hasSwitch: true,
+                    switchValue: controller.biometricEnabled.value,
+                    onSwitchChanged: controller.toggleBiometric,
+                  );
+                },
+              ),
+
+              const SizedBox(height: 24),
+
               // Notifications Section
               _buildSectionHeader('Notifications'),
               const SizedBox(height: 12),

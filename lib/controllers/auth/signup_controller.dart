@@ -117,8 +117,9 @@ class SignupController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
+      // Format as MM/DD/YYYY
       dobController.text =
-          '${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}';
+          '${picked.month.toString().padLeft(2, '0')}/${picked.day.toString().padLeft(2, '0')}/${picked.year}';
     }
   }
 

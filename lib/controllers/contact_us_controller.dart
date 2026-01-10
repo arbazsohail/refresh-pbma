@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/contact_us_success_dialog.dart';
-import '../services/support_service.dart';
+import '../services/settings_service.dart';
 
 class ContactUsController extends GetxController {
-  final SupportService _supportService = Get.find<SupportService>();
+  final SettingsService _settingsService = Get.find<SettingsService>();
   // Form key
   final formKey = GlobalKey<FormState>();
 
@@ -62,7 +62,7 @@ class ContactUsController extends GetxController {
 
     try {
       // Call support query API
-      final response = await _supportService.submitSupportQuery(
+      final response = await _settingsService.submitSupportQuery(
         name: nameController.text,
         email: emailController.text,
         message: messageController.text,

@@ -16,6 +16,7 @@ class ProfileSettingsController extends GetxController {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
+  final dobController = TextEditingController();
 
   // Loading state
   final RxBool isLoading = false.obs;
@@ -33,6 +34,7 @@ class ProfileSettingsController extends GetxController {
     lastNameController.dispose();
     emailController.dispose();
     phoneController.dispose();
+    dobController.dispose();
     super.onClose();
   }
 
@@ -42,6 +44,7 @@ class ProfileSettingsController extends GetxController {
     final userName = _storageService.getUserName() ?? '';
     final userEmail = _storageService.getUserEmail() ?? '';
     final userMobile = _storageService.getUserMobile() ?? '';
+    final userDob = _storageService.getUserDob() ?? '';
 
     // Split name into first and last name if available
     final nameParts = userName.split(' ');
@@ -54,6 +57,21 @@ class ProfileSettingsController extends GetxController {
 
     emailController.text = userEmail;
     phoneController.text = userMobile;
+
+    // Format DOB from YYYY-MM-DD to MM/DD/YYYY if available
+    if (userDob.isNotEmpty) {
+      try {
+        final parts = userDob.split('-');
+        if (parts.length == 3) {
+          // Convert from YYYY-MM-DD to MM/DD/YYYY
+          dobController.text = '${parts[1]}/${parts[2]}/${parts[0]}';
+        } else {
+          dobController.text = userDob;
+        }
+      } catch (e) {
+        dobController.text = userDob;
+      }
+    }
   }
 
   // Validation methods
@@ -91,6 +109,52 @@ class ProfileSettingsController extends GetxController {
     return null;
   }
 
+  String? validateDOB(String? value) {
+    // DOB is optional, so no validation if empty
+    if (value == null || value.isEmpty) {
+      return null;
+    }
+    // Basic format check for MM/DD/YYYY
+    final RegExp dobRegex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+    if (!dobRegex.hasMatch(value)) {
+      return 'Please use MM/DD/YYYY format';
+    }
+    return null;
+  }
+
+  // Date picker for DOB
+  Future<void> selectDOB(BuildContext context) async {
+    // Parse current DOB if available
+    DateTime? initialDate;
+    if (dobController.text.isNotEmpty) {
+      try {
+        final parts = dobController.text.split('/');
+        if (parts.length == 3) {
+          initialDate = DateTime(
+            int.parse(parts[2]), // year
+            int.parse(parts[0]), // month
+            int.parse(parts[1]), // day
+          );
+        }
+      } catch (e) {
+        // Use default if parsing fails
+      }
+    }
+
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate ?? DateTime(2000),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      // Format as MM/DD/YYYY
+      dobController.text =
+          '${picked.month.toString().padLeft(2, '0')}/${picked.day.toString().padLeft(2, '0')}/${picked.year}';
+    }
+  }
+
   // Save changes
   Future<void> saveChanges() async {
     if (!formKey.currentState!.validate()) {
@@ -100,11 +164,25 @@ class ProfileSettingsController extends GetxController {
     isLoading.value = true;
 
     try {
+      // Convert DOB from MM/DD/YYYY to YYYY-MM-DD for API
+      String? dobForApi;
+      if (dobController.text.isNotEmpty) {
+        try {
+          final parts = dobController.text.split('/');
+          if (parts.length == 3) {
+            dobForApi = '${parts[2]}-${parts[0]}-${parts[1]}'; // YYYY-MM-DD
+          }
+        } catch (e) {
+          print('⚠️ DOB conversion error: $e');
+        }
+      }
+
       // Call API to update profile
       final response = await _authService.updateProfile(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         mobileNo: phoneController.text,
+        dob: dobForApi,
       );
 
       // Stop loading to update UI

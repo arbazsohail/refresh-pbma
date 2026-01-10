@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/faq_model.dart';
-import '../services/auth_service.dart';
+import '../services/settings_service.dart';
 import '../widgets/custom_snackbar.dart';
 
 class FaqController extends GetxController {
   // Services
-  final AuthService _authService = Get.find<AuthService>();
+  final SettingsService _settingsService = Get.find<SettingsService>();
 
   // Search controller
   final searchController = TextEditingController();
@@ -40,7 +40,7 @@ class FaqController extends GetxController {
 
     try {
       // Fetch FAQs from API
-      final response = await _authService.getFaqs();
+      final response = await _settingsService.getFaqs();
 
       // Parse FAQ data
       final List<dynamic> faqData = response['data'] ?? [];

@@ -5,10 +5,12 @@ import '../models/service_model.dart';
 import '../services/storage_service.dart';
 import '../services/api_service.dart';
 import '../services/api_constants.dart';
+import '../services/settings_service.dart';
 
 class HomePageController extends GetxController {
   final StorageService _storageService = Get.find<StorageService>();
   final ApiService _apiService = Get.find<ApiService>();
+  final SettingsService _settingsService = Get.find<SettingsService>();
 
   final RxList<ServiceModel> services = <ServiceModel>[].obs;
   final RxList<BlogModel> blogs = <BlogModel>[].obs;
@@ -16,6 +18,7 @@ class HomePageController extends GetxController {
   final RxInt expandedFaqIndex = (-1).obs;
   final RxString userName = 'User'.obs;
   final RxBool isLoadingServices = false.obs;
+  final RxBool isLoadingFaqs = false.obs;
 
   @override
   void onInit() {
@@ -23,6 +26,7 @@ class HomePageController extends GetxController {
     loadUserName();
     loadData();
     fetchServices();
+    fetchFAQs();
   }
 
   void loadUserName() {
@@ -86,40 +90,7 @@ class HomePageController extends GetxController {
       ),
     ];
 
-    // FAQs
-    faqs.value = [
-      FAQModel(
-        question: 'Do you offer financing options?',
-        answer:
-            'Yes, we offer flexible financing options through our partners. Contact us for more details.',
-        id: '1',
-      ),
-      FAQModel(
-        question:
-            'What\'s the best way to keep my skin looking its best long term?',
-        answer:
-            'Consistent skincare routine, sun protection, hydration, and regular professional treatments are key.',
-        id: '2',
-      ),
-      FAQModel(
-        question: 'Can I book my appointments online?',
-        answer:
-            'Yes, you can easily book appointments through our app or website.',
-        id: '3',
-      ),
-      FAQModel(
-        question: 'Can Refresh help with PCOS related concerns?',
-        answer:
-            'Yes, we offer specialized treatments for PCOS-related skin and hair concerns.',
-        id: '4',
-      ),
-      FAQModel(
-        question: 'Is laser hair removal safe for all skin types?',
-        answer:
-            'Our advanced laser technology is safe for most skin types. We recommend a consultation first.',
-        id: '5',
-      ),
-    ];
+    // FAQs will be loaded from API via fetchFAQs()
   }
 
   void toggleFaq(int index) {
@@ -168,6 +139,31 @@ class HomePageController extends GetxController {
       services.value = [];
     } finally {
       isLoadingServices.value = false;
+    }
+  }
+
+  // Fetch FAQs from API
+  Future<void> fetchFAQs() async {
+    try {
+      isLoadingFaqs.value = true;
+
+      final response = await _settingsService.getFaqs();
+
+      print('📥 Get FAQs for Home Response: ${response['data']}');
+
+      if (response['code'] == 200) {
+        final List<dynamic> data = response['data'] ?? [];
+        // Get first 5 FAQs for home page
+        final allFaqs = data.map((json) => FAQModel.fromJson(json)).toList();
+        faqs.value = allFaqs.take(5).toList();
+        print('✅ Loaded ${faqs.length} FAQs for home page');
+      }
+    } catch (e) {
+      print('❌ Error fetching FAQs: $e');
+      // Keep FAQs empty on error
+      faqs.value = [];
+    } finally {
+      isLoadingFaqs.value = false;
     }
   }
 }
